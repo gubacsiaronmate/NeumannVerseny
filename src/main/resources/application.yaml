@@ -4,3 +4,6 @@ ktor:
             - com.debdevs.ApplicationKt.module
     deployment:
         port: 8080
+    database:
+        db_user: $NEUMANN_VERSENY_DATABASE_USERNAME
+        db_password: $NEUMANN_VERSENY_DATABASE_PASSWORD

@@ -34,3 +34,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Docker ###
+Dockerfile
+.dockerignore
+webserver.env

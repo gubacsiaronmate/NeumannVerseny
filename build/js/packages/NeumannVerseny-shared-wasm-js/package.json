@@ -1,0 +1,10 @@
+{
+  "name": "NeumannVerseny-shared-wasm-js",
+  "version": "0.0.0-unspecified",
+  "main": "kotlin/NeumannVerseny-shared-wasm-js.mjs",
+  "devDependencies": {},
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}

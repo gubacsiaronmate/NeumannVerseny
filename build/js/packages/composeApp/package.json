@@ -1,0 +1,17 @@
+{
+  "name": "composeApp",
+  "version": "0.0.0-unspecified",
+  "main": "kotlin/composeApp.mjs",
+  "devDependencies": {
+    "webpack": "5.94.0",
+    "webpack-cli": "5.1.4",
+    "kotlin-web-helpers": "2.0.0",
+    "source-map-loader": "5.0.0",
+    "typescript": "5.5.4",
+    "webpack-dev-server": "4.15.2"
+  },
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}

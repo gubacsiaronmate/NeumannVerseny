@@ -1,0 +1,127 @@
+[
+  {
+    "moduleId": "module org.jetbrains.kotlin:kotlin-stdlib:2.1.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.kotlin-kotlin-stdlib-2.1.0-commonMain-ITmP6A.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.runtime:runtime:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.runtime-runtime-1.7.0-commonMain-9pDeVQ.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.foundation:foundation:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.foundation-foundation-1.7.0-commonMain-Z4pWpg.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.material:material:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.material-material-1.7.0-commonMain-G6kTFA.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.ui:ui:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.ui-ui-1.7.0-commonMain-byxhLA.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.components:components-resources:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.components-components-resources-1.7.0-commonMain-Tn2Qyw.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.components:components-ui-tooling-preview:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.components-components-ui-tooling-preview-1.7.0-commonMain--i3iSw.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.androidx.lifecycle:lifecycle-viewmodel:2.8.3",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.androidx.lifecycle-lifecycle-viewmodel-2.8.3-commonMain-I44vqw.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.8.3",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.androidx.lifecycle-lifecycle-runtime-compose-2.8.3-commonMain-eB6IaQ.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "project ::shared",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\shared\\build\\classes\\kotlin\\metadata\\commonMain",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.animation:animation:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.animation-animation-1.7.0-commonMain-TojQLQ.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.animation:animation-core:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.animation-animation-core-1.7.0-commonMain-KAIxIA.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.material:material-icons-core:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.material-material-icons-core-1.7.0-commonMain-OY6u5w.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.material:material-ripple:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.material-material-ripple-1.7.0-commonMain-hYj_-Q.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.ui:ui-text:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.ui-ui-text-1.7.0-commonMain-22Ga_g.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.runtime:runtime-saveable:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.runtime-runtime-saveable-1.7.0-commonMain-dToAUQ.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.ui:ui-geometry:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.ui-ui-geometry-1.7.0-commonMain-CwQ9Eg.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.ui:ui-graphics:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.ui-ui-graphics-1.7.0-commonMain-nWZcXg.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.ui:ui-unit:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.ui-ui-unit-1.7.0-commonMain-pR3KgA.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.ui:ui-util:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.ui-ui-util-1.7.0-commonMain-3-t5Ow.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.annotation-internal:annotation:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.annotation-internal-annotation-1.7.0-commonMain-BD0V2w.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.kotlinx-kotlinx-coroutines-core-1.9.0-commonMain-ENDfhw.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.androidx.lifecycle:lifecycle-runtime:2.8.3",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.androidx.lifecycle-lifecycle-runtime-2.8.3-commonMain-P_jWsA.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.compose.foundation:foundation-layout:1.7.0",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.compose.foundation-foundation-layout-1.7.0-commonMain-Nkt8ew.klib",
+    "sourceSetName": "commonMain"
+  },
+  {
+    "moduleId": "module org.jetbrains.androidx.lifecycle:lifecycle-common:2.8.3",
+    "file": "C:\\Users\\garon\\Desktop\\NeumannVerseny\\composeApp\\build\\kotlinTransformedMetadataLibraries\\commonMain\\org.jetbrains.androidx.lifecycle-lifecycle-common-2.8.3-commonMain-FPlmfg.klib",
+    "sourceSetName": "commonMain"
+  }
+]

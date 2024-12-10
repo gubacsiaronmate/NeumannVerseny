@@ -1,0 +1,9 @@
+com.debdevs.project.shared-pngs-0 C:\Users\garon\Desktop\NeumannVerseny\shared\build\generated\res\pngs\release
+com.debdevs.project.shared-resValues-1 C:\Users\garon\Desktop\NeumannVerseny\shared\build\generated\res\resValues\release
+com.debdevs.project.shared-mergeReleaseResources-2 C:\Users\garon\Desktop\NeumannVerseny\shared\build\intermediates\incremental\release\mergeReleaseResources\merged.dir
+com.debdevs.project.shared-mergeReleaseResources-3 C:\Users\garon\Desktop\NeumannVerseny\shared\build\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+com.debdevs.project.shared-release-4 C:\Users\garon\Desktop\NeumannVerseny\shared\build\intermediates\merged_res\release\mergeReleaseResources
+com.debdevs.project.shared-androidMain-5 C:\Users\garon\Desktop\NeumannVerseny\shared\src\androidMain\res
+com.debdevs.project.shared-androidRelease-6 C:\Users\garon\Desktop\NeumannVerseny\shared\src\androidRelease\res
+com.debdevs.project.shared-main-7 C:\Users\garon\Desktop\NeumannVerseny\shared\src\main\res
+com.debdevs.project.shared-release-8 C:\Users\garon\Desktop\NeumannVerseny\shared\src\release\res

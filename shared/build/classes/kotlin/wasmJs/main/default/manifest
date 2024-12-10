@@ -1,0 +1,11 @@
+abi_version=1.201.0
+builtins_platform=WASM
+compiler_version=2.1.0
+depends=kotlin
+ir_signature_versions=1,2
+jsOutputName=NeumannVerseny-shared-wasm-js
+metadata_version=1.4.1
+serializedIrFileFingerprints=3uu4y387dav67.es66t51razn2 1x4zfdy807ttg.35ltuthd8bbfw 33qp5ox5skykz.3hwomzkbsm58y 3tgc6pzbptg64.xi201a9gv9t3
+serializedKlibFingerprint=7ncunap7l46z.n8f3lzhfqjat
+unique_name=NeumannVerseny\:shared
+wasm_targets=wasm-js

@@ -1,0 +1,32 @@
+<variant
+    name="debug"
+    package="com.debdevs.project.shared"
+    minSdkVersion="24"
+    targetSdkVersion="24"
+    debuggable="true"
+    mergedManifest="build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml"
+    proguardFiles="build\intermediates\default_proguard_files\global\proguard-android.txt-8.7.3"
+    partialResultsDir="build\intermediates\lint_partial_results\debug\lintAnalyzeDebug\out"
+    desugaredMethodsFiles="C:\Users\garon\.gradle\caches\8.10\transforms\f5c5c790b095bf42725bb4d03d78c285\transformed\D8BackportedDesugaredMethods.txt">
+  <buildFeatures
+      namespacing="REQUIRED"/>
+  <sourceProviders>
+    <sourceProvider
+        manifests="src\androidMain\AndroidManifest.xml"
+        javaDirectories="src\main\java;src\debug\java;src\androidMain\kotlin;src\main\kotlin;src\debug\kotlin"
+        resDirectories="src\main\res;src\androidMain\res;src\debug\res;src\androidDebug\res"
+        assetsDirectories="src\main\assets;src\androidMain\assets;src\debug\assets;src\androidDebug\assets"/>
+  </sourceProviders>
+  <testSourceProviders>
+  </testSourceProviders>
+  <testFixturesSourceProviders>
+  </testFixturesSourceProviders>
+  <artifact
+      classOutputs="build\intermediates\javac\debug\compileDebugJavaWithJavac\classes;build\tmp\kotlin-classes\debug;build\intermediates\compile_r_class_jar\debug\generateDebugRFile\R.jar"
+      type="MAIN"
+      applicationId="com.debdevs.project.shared"
+      generatedSourceFolders="build\generated\ap_generated_sources\debug\out"
+      generatedResourceFolders="build\generated\res\resValues\debug"
+      desugaredMethodsFiles="C:\Users\garon\.gradle\caches\8.10\transforms\f5c5c790b095bf42725bb4d03d78c285\transformed\D8BackportedDesugaredMethods.txt">
+  </artifact>
+</variant>

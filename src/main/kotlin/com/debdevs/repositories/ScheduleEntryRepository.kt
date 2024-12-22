@@ -1,15 +1,15 @@
 package com.debdevs.repositories
 
 import com.debdevs.data.ScheduleEntry
+import com.debdevs.objects.ScheduleEntries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.update
-import com.debdevs.objects.ScheduleEntries
-import org.jetbrains.exposed.sql.selectAll
-import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.update
 
 /**
  * Retrieves all schedule entries from the database.
@@ -94,7 +94,7 @@ suspend fun deleteScheduleEntry(id: Int): Boolean = withContext(Dispatchers.IO) 
  * @param scheduleEntry the [ScheduleEntry] containing updated data.
  * @return true if the entry is successfully modified, false otherwise.
  */
-suspend fun modifyScheduleEntry(scheduleEntry: ScheduleEntry): Boolean = withContext(Dispatchers.IO) {
+suspend fun updateScheduleEntry(scheduleEntry: ScheduleEntry): Boolean = withContext(Dispatchers.IO) {
     return@withContext transaction {
         val updated = ScheduleEntries.update({ ScheduleEntries.id eq scheduleEntry.id!! }, limit = 1) {
             it[id] = scheduleEntry.id!!

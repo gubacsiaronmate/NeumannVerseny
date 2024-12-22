@@ -6,7 +6,7 @@ import kotlinx.datetime.todayIn
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.kotlin.datetime.date
 
-object Schedules : Table("Schedules") {
+object Schedules : Table("schedules") {
     val id = integer("id").uniqueIndex().autoIncrement()
     val userId = integer("userId").uniqueIndex().references(Users.id)
     val name = varchar("name", 255).default("Unnamed schedule $id")

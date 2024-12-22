@@ -1,6 +1,7 @@
 package com.debdevs
 
 import io.ktor.server.application.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
@@ -15,7 +16,7 @@ fun Application.module() = runBlocking {
     configureHTTP()
     configureMonitoring()
     configureSerialization()
-    if (dbUsername != null && dbPassword != null) async { configureDatabases(dbUsername, dbPassword) }.await()
+    if (dbUsername != null && dbPassword != null) async(Dispatchers.Default) { configureDatabases(dbUsername, dbPassword) }.await()
     else throw Exception("Database credentials not found in environment variables")
     configureSockets()
     configureAdministration()

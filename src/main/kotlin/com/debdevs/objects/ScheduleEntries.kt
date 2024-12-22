@@ -3,7 +3,7 @@ package com.debdevs.objects
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.kotlin.datetime.time
 
-object ScheduleEntries : Table("ScheduleEntries") {
+object ScheduleEntries : Table("schedule_entries") {
     val id = integer("id").uniqueIndex().autoIncrement()
     val scheduleId = integer("scheduleId").uniqueIndex().references(Schedules.id)
     val startTime = time("startTime")

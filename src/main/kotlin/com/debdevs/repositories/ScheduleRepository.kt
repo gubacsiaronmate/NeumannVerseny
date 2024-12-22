@@ -4,12 +4,12 @@ import com.debdevs.data.Schedule
 import com.debdevs.objects.Schedules
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.update
-import org.jetbrains.exposed.sql.selectAll
-import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.update
 
 /**
  * Retrieves all schedules from the database.
@@ -88,7 +88,7 @@ suspend fun deleteSchedule(id: Int): Boolean = withContext(Dispatchers.IO) {
  * @param schedule The `Schedule` object containing updated details.
  * @return `true` if the schedule is successfully updated, `false` otherwise.
  */
-suspend fun modifySchedule(schedule: Schedule): Boolean = withContext(Dispatchers.IO) {
+suspend fun updateSchedule(schedule: Schedule): Boolean = withContext(Dispatchers.IO) {
     return@withContext transaction {
         val updated = Schedules.update({ Schedules.id eq schedule.id!! }, limit = 1) {
             it[id] = schedule.id!!

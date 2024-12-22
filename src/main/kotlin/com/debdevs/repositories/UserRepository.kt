@@ -4,12 +4,12 @@ import com.debdevs.data.User
 import com.debdevs.objects.Users
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.update
-import org.jetbrains.exposed.sql.selectAll
-import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.update
 
 /**
  * Retrieves all users from the database.
@@ -59,7 +59,7 @@ suspend fun getUserById(id: Int): User? = withContext(Dispatchers.IO) {
 suspend fun addUser(user: User): Boolean = withContext(Dispatchers.IO) {
     return@withContext transaction {
         val id = Users.insert {
-            it[id] = user.id!!
+            if (user.id != null) it[id] = user.id
             it[email] = user.email
             it[password] = user.password
             it[tier] = user.tier
@@ -88,10 +88,10 @@ suspend fun deleteUser(id: Int): Boolean = withContext(Dispatchers.IO) {
  * @param user The user object containing the updated details.
  * @return `true` if the user was successfully updated, `false` otherwise.
  */
-suspend fun modifyUser(user: User): Boolean = withContext(Dispatchers.IO) {
+suspend fun updateUser(user: User): Boolean = withContext(Dispatchers.IO) {
     return@withContext transaction {
         val updated = Users.update({ Users.id eq user.id!! }, limit = 1) {
-            it[id] = user.id!!
+            if (user.id != null) it[id] = user.id
             it[email] = user.email
             it[password] = user.password
             it[tier] = user.tier

@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+//todo: sort widgets into different files.
+
 class CustomTextFormField extends StatefulWidget {
   final String hinttext;
   final bool obsecuretext;
@@ -30,7 +32,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       obscureText: widget.obsecuretext,
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(18),
-          // border: InputBorder.none,
           border: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.black),
               borderRadius: BorderRadius.circular(12)),

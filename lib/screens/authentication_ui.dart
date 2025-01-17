@@ -1,3 +1,4 @@
+import 'package:lottie/lottie.dart';
 import 'package:on_time/common/common.dart';
 import 'package:on_time/router/router.dart';
 import 'package:on_time/screens/fade_animationtest.dart';
@@ -26,10 +27,28 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
           SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: Image.asset(
-              "assets/images/Placeholder.png",
-              filterQuality: FilterQuality.high,
-              fit: BoxFit.cover,
+            // Center the text
+            child: const Text(
+              "onTime",
+              style: TextStyle(
+                color: Colors.white, // Set text color to white
+                fontSize: 24, // Increase font size
+                fontWeight: FontWeight.bold, // Make text bold
+                letterSpacing: 1.2, // Add slight spacing between letters
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 60,
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: LottieBuilder.asset(
+              "assets/images/home.json",
+              onLoaded: (composition) {
+                debugPrint('Animation Loaded');
+              },
             ),
           ),
           Positioned(
@@ -47,8 +66,7 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: AssetImage(
-                              "assets/images/logo-placeholder-image.png"),
+                          image: AssetImage("assets/images/onTime_logo.png"),
                         ),
                       ),
                     ),

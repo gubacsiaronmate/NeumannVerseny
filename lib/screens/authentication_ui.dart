@@ -130,17 +130,6 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
                   const SizedBox(
                     height: 50,
                   ),
-                  FadeInAnimation(
-                    delay: 2.5,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text("Folytatás vendégként",
-                          style: Common().mediumTheme),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
                 ],
               ),
             ),

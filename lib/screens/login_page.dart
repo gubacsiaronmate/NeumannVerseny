@@ -123,15 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: CustomElevatedButton(
                           message: "Bejelentkezés",
                           function: () {
-                            if (flag) {
-                              setState(() {
-                                flag = false;
-                              });
-                            } else {
-                              setState(() {
-                                flag = true;
-                              });
-                            }
+                            GoRouter.of(context).pushNamed(Routers.homepage.name);
                           },
                           color: Colors.black,
                         ),

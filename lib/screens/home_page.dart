@@ -13,10 +13,42 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    const Center(child: Text('Home Page Content')),
-    const Center(child: Text('Tasks Page Content')),
-    const Center(child: Text('Workout Page Content')),
-    const Center(child: Text('Pomodoro Page Content')),
+    const SingleChildScrollView(
+      child: Column(
+        children: [
+          Text('Home Page Content'),
+          SizedBox(height: 1000), // Add more space to make it scrollable
+          Text('test'),
+        ],
+      ),
+    ),
+    const SingleChildScrollView(
+      child: Column(
+        children: [
+          Text('Tasks Page Content'),
+          SizedBox(height: 1000),
+          Text('test'),
+        ],
+      ),
+    ),
+    const SingleChildScrollView(
+      child: Column(
+        children: [
+          Text('Workout Page Content'),
+          SizedBox(height: 1000),
+          Text('test'),
+        ],
+      ),
+    ),
+    const SingleChildScrollView(
+      child: Column(
+        children: [
+          Text('Pomodoro Page Content'),
+          SizedBox(height: 1000),
+          Text('test'),
+        ],
+      ),
+    ),
   ];
 
   @override
@@ -38,17 +70,80 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             iconSize: 30.0,
             onPressed: () {},
-            icon: const Icon(Icons.notifications_rounded),
+            icon: const Icon(Icons.notifications_none_rounded),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: IconButton(
-              iconSize: 30.0,
-              onPressed: () {},
-              icon: const Icon(Icons.menu_rounded),
+            child: Builder(
+              builder: (context) => IconButton(
+                iconSize: 30.0,
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+                icon: const Icon(Icons.menu_rounded),
+              ),
             ),
           ),
         ],
+      ),
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
+              onTap: () {
+                setState(() {
+                  _currentIndex = 0;
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.task_alt_outlined),
+              title: const Text('Tasks'),
+              onTap: () {
+                setState(() {
+                  _currentIndex = 1;
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.fitness_center),
+              title: const Text('Workout'),
+              onTap: () {
+                setState(() {
+                  _currentIndex = 2;
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.hourglass_bottom),
+              title: const Text('Pomodoro'),
+              onTap: () {
+                setState(() {
+                  _currentIndex = 3;
+                });
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
       body: SafeArea(
         child: Padding(

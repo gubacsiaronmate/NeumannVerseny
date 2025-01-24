@@ -14,6 +14,8 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final Common common = Common();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,13 +30,14 @@ class _SignupPageState extends State<SignupPage> {
               FadeInAnimation(
                 delay: 0.6,
                 child: IconButton(
-                    onPressed: () {
-                      GoRouter.of(context).pop();
-                    },
-                    icon: const Icon(
-                      CupertinoIcons.back,
-                      size: 35,
-                    )),
+                  onPressed: () {
+                    GoRouter.of(context).pop();
+                  },
+                  icon: const Icon(
+                    CupertinoIcons.back,
+                    size: 35,
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -45,14 +48,14 @@ class _SignupPageState extends State<SignupPage> {
                       delay: 0.9,
                       child: Text(
                         "Üdv!",
-                        style: Common().titelTheme,
+                        style: common.titelTheme,
                       ),
                     ),
                     FadeInAnimation(
                       delay: 1.2,
                       child: Text(
                         "A folytatáshoz regisztráljon!",
-                        style: Common().titelTheme,
+                        style: common.titelTheme,
                       ),
                     ),
                   ],
@@ -108,7 +111,7 @@ class _SignupPageState extends State<SignupPage> {
                         child: CustomElevatedButton(
                           message: "Regisztrálás",
                           function: () {},
-                          color: Colors.black,
+                          color: common.black,
                         ),
                       ),
                     ],
@@ -129,7 +132,7 @@ class _SignupPageState extends State<SignupPage> {
                         delay: 2.9,
                         child: Text(
                           "vagy regisztráljon ezzel",
-                          style: Common().semiboldblack,
+                          style: common.semiboldblack,
                         ),
                       ),
                       const SizedBox(

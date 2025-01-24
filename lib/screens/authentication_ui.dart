@@ -14,6 +14,8 @@ class AuthenticationUI extends StatefulWidget {
 }
 
 class _AuthenticationUIState extends State<AuthenticationUI> {
+  final Common common = Common();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,14 +30,8 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: const Center(
-                child:
-                  Image(image: AssetImage('assets/images/logo-placeholder-image.png'),
-                /*LottieBuilder.asset(
-                  "assets/images/logo.json",
-                  repeat: false,
-                  onLoaded: (composition) {
-                    debugPrint('Animation Loaded');
-                  },*/
+                child: Image(
+                  image: AssetImage('assets/images/logo-placeholder-image.png'),
                 ),
               ),
             ),
@@ -57,7 +53,7 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
                       function: () {
                         GoRouter.of(context).pushNamed(Routers.loginpage.name);
                       },
-                      color: Colors.black,
+                      color: common.black,
                     ),
                   ),
                   const SizedBox(
@@ -70,8 +66,8 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
                         GoRouter.of(context).pushNamed(Routers.signuppage.name);
                       },
                       style: ButtonStyle(
-                        side: const MaterialStatePropertyAll(
-                          BorderSide(color: Colors.black),
+                        side: MaterialStatePropertyAll(
+                          BorderSide(color: common.black),
                         ),
                         shape: MaterialStatePropertyAll(
                           RoundedRectangleBorder(
@@ -84,18 +80,13 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
                         padding: const MaterialStatePropertyAll(
                           EdgeInsets.symmetric(vertical: 20),
                         ),
-                        backgroundColor: const MaterialStatePropertyAll(
-                          Colors.white,
+                        backgroundColor: MaterialStatePropertyAll(
+                          common.white,
                         ),
                       ),
-                      child: const Text(
+                      child: Text(
                         "Regisztráció",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: "Urbanist-SemiBold",
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
+                        style: common.semiboldblack.copyWith(color: common.black),
                       ),
                     ),
                   ),

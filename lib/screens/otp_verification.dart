@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:on_time/common/common.dart';
 import 'package:on_time/router/router.dart';
 import 'package:on_time/screens/fade_animationtest.dart';
@@ -17,6 +15,8 @@ class OtpVerificationPage extends StatefulWidget {
 }
 
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
+  final Common common = Common();
+
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -42,7 +42,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
     );
 
     return Scaffold(
-      // backgroundColor: const Color(0xFFE8ECF4),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -52,13 +51,14 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
               FadeInAnimation(
                 delay: 1,
                 child: IconButton(
-                    onPressed: () {
-                      GoRouter.of(context).pop();
-                    },
-                    icon: const Icon(
-                      CupertinoIcons.back,
-                      size: 35,
-                    )),
+                  onPressed: () {
+                    GoRouter.of(context).pop();
+                  },
+                  icon: const Icon(
+                    CupertinoIcons.back,
+                    size: 35,
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -69,14 +69,14 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       delay: 1.3,
                       child: Text(
                         "Kétfaktoros Hitelesítés",
-                        style: Common().titelTheme,
+                        style: common.titelTheme,
                       ),
                     ),
                     FadeInAnimation(
                       delay: 1.6,
                       child: Text(
                         "Írja be az ellenőrző kódot, amelyet az imént küldtünk az e-mail címére.",
-                        style: Common().mediumThemeblack,
+                        style: common.mediumThemeblack,
                       ),
                     )
                   ],
@@ -115,7 +115,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                             GoRouter.of(context)
                                 .pushNamed(Routers.newpassword.name);
                           },
-                          color: Colors.black,
+                          color: common.black,
                         ),
                       ),
                     ],

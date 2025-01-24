@@ -14,6 +14,8 @@ class NewPasswordPage extends StatefulWidget {
 }
 
 class _NewPasswordPageState extends State<NewPasswordPage> {
+  final Common common = Common();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,14 +46,14 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                       delay: 1.3,
                       child: Text(
                         "Új jelszó létrehozása",
-                        style: Common().titelTheme,
+                        style: common.titelTheme,
                       ),
                     ),
                     FadeInAnimation(
                       delay: 1.6,
                       child: Text(
                         "Az új jelszónak eltérőnek kell lennie az előző jelszótól.",
-                        style: Common().mediumThemeblack,
+                        style: common.mediumThemeblack,
                       ),
                     )
                   ],
@@ -90,7 +92,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                             GoRouter.of(context)
                                 .pushNamed(Routers.passwordchanges.name);
                           },
-                          color: Colors.black,
+                          color: common.black,
                         ),
                       ),
                     ],

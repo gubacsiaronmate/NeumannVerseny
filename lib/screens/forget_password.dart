@@ -15,6 +15,8 @@ class ForgetPasswordPage extends StatefulWidget {
 }
 
 class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
+  final Common common = Common();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,13 +30,14 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
               FadeInAnimation(
                 delay: 1,
                 child: IconButton(
-                    onPressed: () {
-                      GoRouter.of(context).pop();
-                    },
-                    icon: const Icon(
-                      CupertinoIcons.back,
-                      size: 35,
-                    )),
+                  onPressed: () {
+                    GoRouter.of(context).pop();
+                  },
+                  icon: const Icon(
+                    CupertinoIcons.back,
+                    size: 35,
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -45,14 +48,14 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                       delay: 1.3,
                       child: Text(
                         "Elfelejtette jelszavát?",
-                        style: Common().titelTheme,
+                        style: common.titelTheme,
                       ),
                     ),
                     FadeInAnimation(
                       delay: 1.6,
                       child: Text(
                         "Kérjük, adja meg a fiókjához tartozó e-mail címet.",
-                        style: Common().mediumThemeblack,
+                        style: common.mediumThemeblack,
                       ),
                     )
                   ],
@@ -81,7 +84,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                             GoRouter.of(context)
                                 .pushNamed(Routers.otpverification.name);
                           },
-                          color: Colors.black,
+                          color: common.black,
                         ),
                       ),
                     ],
@@ -98,7 +101,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                     children: [
                       Text(
                         "Don’t have an account?",
-                        style: Common().hinttext,
+                        style: common.hinttext,
                       ),
                       TextButton(
                           onPressed: () {
@@ -107,7 +110,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                           },
                           child: Text(
                             "Register Now",
-                            style: Common().mediumTheme,
+                            style: common.mediumTheme,
                           )),
                     ],
                   ),

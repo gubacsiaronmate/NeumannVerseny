@@ -15,10 +15,11 @@ class PasswordChangesPage extends StatefulWidget {
 }
 
 class _PasswordChangesPageState extends State<PasswordChangesPage> {
+  final Common common = Common();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color(0xFFE8ECF4),
       body: SafeArea(
         child: Column(
           children: [
@@ -33,14 +34,14 @@ class _PasswordChangesPageState extends State<PasswordChangesPage> {
               delay: 1,
               child: Text(
                 "Jelszó megváltoztatva!",
-                style: Common().titelTheme,
+                style: common.titelTheme,
               ),
             ),
             FadeInAnimation(
               delay: 1.5,
               child: Text(
                 "Jelszavát sikeresen megváltoztattuk",
-                style: Common().mediumThemeblack,
+                style: common.mediumThemeblack,
               ),
             ),
             const SizedBox(
@@ -53,7 +54,7 @@ class _PasswordChangesPageState extends State<PasswordChangesPage> {
                 function: () {
                   GoRouter.of(context).pushReplacement(Routers.loginpage.name);
                 },
-                color: Colors.black,
+                color: common.black,
               ),
             ),
           ],

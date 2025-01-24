@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:on_time/common/common.dart';
 
 class PomodoroPage extends StatefulWidget {
   const PomodoroPage({super.key});
@@ -12,25 +13,41 @@ class _PomodoroPageState extends State<PomodoroPage> {
   static const int workDuration = 25 * 60; // 25 minutes
   static const int breakDuration = 5 * 60; // 5 minutes
 
-  late Timer _timer;
+  Timer? _timer;
   int _remainingTime = workDuration;
   bool _isWorking = true;
+  int _completedWorkSessions = 0;
+  int _completedBreakSessions = 0;
+
+  final Common common = Common();
 
   void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        if (_remainingTime > 0) {
-          _remainingTime--;
-        } else {
-          _isWorking = !_isWorking;
-          _remainingTime = _isWorking ? workDuration : breakDuration;
-        }
-      });
-    });
+    if (_timer == null || !_timer!.isActive) {
+      _timer = Timer.periodic(
+        const Duration(seconds: 1),
+        (timer) {
+          setState(
+            () {
+              if (_remainingTime > 0) {
+                _remainingTime--;
+              } else {
+                if (_isWorking) {
+                  _completedWorkSessions++;
+                } else {
+                  _completedBreakSessions++;
+                }
+                _isWorking = !_isWorking;
+                _remainingTime = _isWorking ? workDuration : breakDuration;
+              }
+            },
+          );
+        },
+      );
+    }
   }
 
   void _stopTimer() {
-    _timer.cancel();
+    _timer?.cancel();
   }
 
   void _resetTimer() {
@@ -54,7 +71,7 @@ class _PomodoroPageState extends State<PomodoroPage> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -63,6 +80,7 @@ class _PomodoroPageState extends State<PomodoroPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pomodoro Timer'),
+        backgroundColor: common.maincolor,
       ),
       body: Center(
         child: Column(
@@ -70,7 +88,7 @@ class _PomodoroPageState extends State<PomodoroPage> {
           children: [
             Text(
               _isWorking ? 'Work Time' : 'Break Time',
-              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
+              style: common.titelTheme.copyWith(color: common.white),
             ),
             const SizedBox(height: 20),
             Stack(
@@ -82,12 +100,12 @@ class _PomodoroPageState extends State<PomodoroPage> {
                   child: CircularProgressIndicator(
                     value: _getProgress(),
                     strokeWidth: 10,
-                    color: Colors.white,
+                    color: common.white,
                   ),
                 ),
                 Text(
                   _formatTime(_remainingTime),
-                  style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: common.titelTheme.copyWith(color: common.white),
                 ),
               ],
             ),
@@ -97,22 +115,34 @@ class _PomodoroPageState extends State<PomodoroPage> {
               children: [
                 ElevatedButton(
                   onPressed: _startTimer,
-                  child: const Text('Start'),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                  child: Text('Start', style: common.semiboldwhite),
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: common.black),
                 ),
                 const SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: _stopTimer,
-                  child: const Text('Stop'),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                  child: Text('Stop', style: common.semiboldwhite),
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: common.black),
                 ),
                 const SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: _resetTimer,
-                  child: const Text('Reset'),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                  child: Text('Reset', style: common.semiboldwhite),
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: common.black),
                 ),
               ],
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Completed Work Sessions: $_completedWorkSessions',
+              style: common.mediumTheme,
+            ),
+            Text(
+              'Completed Break Sessions: $_completedBreakSessions',
+              style: common.mediumTheme,
             ),
           ],
         ),

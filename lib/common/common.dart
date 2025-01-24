@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 class Common {
   Color maincolor = const Color(0xFF35C2C1);
   Color white = const Color(0xFFF5F5F5);
-  Color black = const Color(0xFF1E232C);
+  Color black = const Color(0xFF0D1315);
 
   TextStyle titelTheme = const TextStyle(
     fontSize: 30,
     fontFamily: "Urbanist",
     fontWeight: FontWeight.bold,
-    // color: Colors.white
   );
   TextStyle mediumTheme = const TextStyle(
       fontSize: 15,
@@ -28,7 +27,6 @@ class Common {
       color: Colors.white);
   TextStyle semiboldblack = const TextStyle(
     fontSize: 15, fontFamily: "Urbanist-SemiBold",
-    //  color: Colors.white
   );
   TextStyle hinttext = const TextStyle(
       fontSize: 15, fontFamily: 'Urbanist-Medium', color: Color(0xFF8391A1));

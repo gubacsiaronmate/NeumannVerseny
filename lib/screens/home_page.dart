@@ -6,6 +6,7 @@ import '../screens/tasks_page.dart' as tasks;
 import '../screens/workout_page.dart' as workout;
 import '../screens/pomodoro_page.dart' as pomodoro;
 import '../widgets/page_content.dart';
+import 'package:on_time/common/common.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+  final Common common = Common();
 
   final List<Widget> _pages = [
     const PageContent(content: 'Home Page Content'),
@@ -36,15 +38,11 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (_currentIndex == 0)
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Text(
                     "Welcome Back!",
-                    style: TextStyle(
-                      fontFamily: "Urbanist-SemiBold",
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: common.titelTheme.copyWith(color: common.black),
                   ),
                 ),
               Expanded(

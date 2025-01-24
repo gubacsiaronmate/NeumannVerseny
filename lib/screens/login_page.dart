@@ -16,10 +16,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool flag = true;
+  final Common common = Common();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color(0xFFE8ECF4),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -30,14 +31,15 @@ class _LoginPageState extends State<LoginPage> {
               FadeInAnimation(
                 delay: 1,
                 child: IconButton(
-                    onPressed: () {
-                      GoRouter.of(context)
-                          .pushNamed(Routers.authenticationpage.name);
-                    },
-                    icon: const Icon(
-                      CupertinoIcons.back,
-                      size: 35,
-                    )),
+                  onPressed: () {
+                    GoRouter.of(context)
+                        .pushNamed(Routers.authenticationpage.name);
+                  },
+                  icon: const Icon(
+                    CupertinoIcons.back,
+                    size: 35,
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -48,14 +50,14 @@ class _LoginPageState extends State<LoginPage> {
                       delay: 1.3,
                       child: Text(
                         "Üdvözöljük!",
-                        style: Common().titelTheme,
+                        style: common.titelTheme,
                       ),
                     ),
                     FadeInAnimation(
                       delay: 1.6,
                       child: Text(
                         "Örülünk, hogy újra láthatjuk!",
-                        style: Common().titelTheme,
+                        style: common.titelTheme,
                       ),
                     ),
                   ],
@@ -81,17 +83,18 @@ class _LoginPageState extends State<LoginPage> {
                         child: TextFormField(
                           obscureText: flag ? true : false,
                           decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.all(18),
-                              hintText: "Adja meg jelszavát",
-                              hintStyle: Common().hinttext,
-                              border: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.black),
-                                  borderRadius: BorderRadius.circular(12)),
-                              suffixIcon: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                      Icons.remove_red_eye_outlined))),
+                            contentPadding: const EdgeInsets.all(18),
+                            hintText: "Adja meg jelszavát",
+                            hintStyle: common.hinttext,
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.black),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.remove_red_eye_outlined),
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -100,20 +103,22 @@ class _LoginPageState extends State<LoginPage> {
                       FadeInAnimation(
                         delay: 2.5,
                         child: Align(
-                            alignment: Alignment.centerRight,
-                            child: GestureDetector(
-                                onTap: () {
-                                  GoRouter.of(context)
-                                      .pushNamed(Routers.forgetpassword.name);
-                                },
-                                child: const Text(
-                                  "Elfelejtette jelszavát?",
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: "Urbanist-SemiBold",
-                                  ),
-                                ))),
+                          alignment: Alignment.centerRight,
+                          child: GestureDetector(
+                            onTap: () {
+                              GoRouter.of(context)
+                                  .pushNamed(Routers.forgetpassword.name);
+                            },
+                            child: const Text(
+                              "Elfelejtette jelszavát?",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: "Urbanist-SemiBold",
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                       const SizedBox(
                         height: 10,
@@ -123,9 +128,10 @@ class _LoginPageState extends State<LoginPage> {
                         child: CustomElevatedButton(
                           message: "Bejelentkezés",
                           function: () {
-                            GoRouter.of(context).pushNamed(Routers.homepage.name);
+                            GoRouter.of(context)
+                                .pushNamed(Routers.homepage.name);
                           },
-                          color: Colors.black,
+                          color: common.black,
                         ),
                       ),
                     ],
@@ -146,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                         delay: 2.2,
                         child: Text(
                           "vagy jelentkezzen be ezzel",
-                          style: Common().semiboldblack,
+                          style: common.semiboldblack,
                         ),
                       ),
                       const SizedBox(
@@ -185,17 +191,18 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Text(
                         "Nincs még fiókja?",
-                        style: Common().hinttext,
+                        style: common.hinttext,
                       ),
                       TextButton(
-                          onPressed: () {
-                            GoRouter.of(context)
-                                .pushNamed(Routers.signuppage.name);
-                          },
-                          child: Text(
-                            "Regisztráljon most!",
-                            style: Common().mediumTheme,
-                          )),
+                        onPressed: () {
+                          GoRouter.of(context)
+                              .pushNamed(Routers.signuppage.name);
+                        },
+                        child: Text(
+                          "Regisztráljon most!",
+                          style: common.mediumTheme,
+                        ),
+                      ),
                     ],
                   ),
                 ),

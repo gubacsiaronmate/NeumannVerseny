@@ -63,11 +63,11 @@ suspend fun getScheduleEntryById(id: Int): ScheduleEntry? = withContext(Dispatch
 suspend fun addScheduleEntry(scheduleEntry: ScheduleEntry): Boolean = withContext(Dispatchers.IO) {
     return@withContext transaction {
         val id = ScheduleEntries.insert {
-            it[id] = scheduleEntry.id!!
+            if (scheduleEntry.id != null) it[id] = scheduleEntry.id
             it[scheduleId] = scheduleEntry.scheduleId
             it[startTime] = scheduleEntry.startTime
             it[endTime] = scheduleEntry.endTime
-            it[title] = scheduleEntry.title
+            if (scheduleEntry.title != null) it[title] = scheduleEntry.title
             it[description] = scheduleEntry.description
         } get ScheduleEntries.id
 
@@ -83,7 +83,7 @@ suspend fun addScheduleEntry(scheduleEntry: ScheduleEntry): Boolean = withContex
  */
 suspend fun deleteScheduleEntry(id: Int): Boolean = withContext(Dispatchers.IO) {
     return@withContext transaction {
-        val deleted = ScheduleEntries.deleteWhere(limit = 1) { ScheduleEntries.id eq id }
+        val deleted = ScheduleEntries.deleteWhere { ScheduleEntries.id eq id }
         return@transaction deleted == 1
     }
 }
@@ -96,12 +96,12 @@ suspend fun deleteScheduleEntry(id: Int): Boolean = withContext(Dispatchers.IO) 
  */
 suspend fun updateScheduleEntry(scheduleEntry: ScheduleEntry): Boolean = withContext(Dispatchers.IO) {
     return@withContext transaction {
-        val updated = ScheduleEntries.update({ ScheduleEntries.id eq scheduleEntry.id!! }, limit = 1) {
-            it[id] = scheduleEntry.id!!
+        val updated = ScheduleEntries.update({ ScheduleEntries.id eq scheduleEntry.id!! }) {
+            if (scheduleEntry.id != null) it[id] = scheduleEntry.id
             it[scheduleId] = scheduleEntry.scheduleId
             it[startTime] = scheduleEntry.startTime
             it[endTime] = scheduleEntry.endTime
-            it[title] = scheduleEntry.title
+            if (scheduleEntry.title != null) it[title] = scheduleEntry.title
             it[description] = scheduleEntry.description
         }
 

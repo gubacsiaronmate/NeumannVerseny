@@ -6,7 +6,7 @@ object Users : Table("users") {
     val id = integer("id").uniqueIndex().autoIncrement()
     val email = varchar("email", 255)
     val password = varchar("password", 255)
-    val tier = integer("tier").default(0).nullable()
+    val tier = integer("tier").default(0)
 
     override val primaryKey = PrimaryKey(id)
 }

@@ -5,5 +5,5 @@ ktor:
     deployment:
         port: 8080
     database:
-        db_user: $NEUMANN_VERSENY_DATABASE_USERNAME
-        db_password: $NEUMANN_VERSENY_DATABASE_PASSWORD
+        db_user: $NEUMANN_DB_USERNAME
+        db_password: $NEUMANN_DB_PASSWORD

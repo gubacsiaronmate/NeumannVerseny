@@ -62,7 +62,7 @@ suspend fun addUser(user: User): Boolean = withContext(Dispatchers.IO) {
             if (user.id != null) it[id] = user.id
             it[email] = user.email
             it[password] = user.password
-            it[tier] = user.tier
+            if (user.tier != null) it[tier] = user.tier
         } get Users.id
 
         return@transaction Users.selectAll().firstOrNull { it[Users.id] == id } != null
@@ -77,7 +77,7 @@ suspend fun addUser(user: User): Boolean = withContext(Dispatchers.IO) {
  */
 suspend fun deleteUser(id: Int): Boolean = withContext(Dispatchers.IO) {
     return@withContext transaction {
-        val deleted = Users.deleteWhere(limit = 1) { Users.id eq id }
+        val deleted = Users.deleteWhere { Users.id eq id }
         return@transaction deleted == 1
     }
 }
@@ -90,11 +90,11 @@ suspend fun deleteUser(id: Int): Boolean = withContext(Dispatchers.IO) {
  */
 suspend fun updateUser(user: User): Boolean = withContext(Dispatchers.IO) {
     return@withContext transaction {
-        val updated = Users.update({ Users.id eq user.id!! }, limit = 1) {
+        val updated = Users.update({ Users.id eq user.id!! }) {
             if (user.id != null) it[id] = user.id
             it[email] = user.email
             it[password] = user.password
-            it[tier] = user.tier
+            if (user.tier != null) it[tier] = user.tier
         }
 
         return@transaction updated == 1

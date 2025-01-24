@@ -59,10 +59,10 @@ suspend fun getScheduleById(id: Int): Schedule? = withContext(Dispatchers.IO) {
 suspend fun addSchedule(schedule: Schedule): Boolean = withContext(Dispatchers.IO) {
     return@withContext transaction {
         val id = Schedules.insert {
-            it[id] = schedule.id!!
+            if (schedule.id != null) it[id] = schedule.id
             it[userId] = schedule.userId
-            it[name] = schedule.name
-            it[createdAt] = schedule.createdAt
+            if (schedule.name != null) it[name] = schedule.name
+            if (schedule.createdAt != null) it[createdAt] = schedule.createdAt
         } get Schedules.id
 
         return@transaction Schedules.selectAll().firstOrNull { it[Schedules.id] == id } != null
@@ -91,10 +91,10 @@ suspend fun deleteSchedule(id: Int): Boolean = withContext(Dispatchers.IO) {
 suspend fun updateSchedule(schedule: Schedule): Boolean = withContext(Dispatchers.IO) {
     return@withContext transaction {
         val updated = Schedules.update({ Schedules.id eq schedule.id!! }, limit = 1) {
-            it[id] = schedule.id!!
+            if (schedule.id != null) it[id] = schedule.id
             it[userId] = schedule.userId
-            it[name] = schedule.name
-            it[createdAt] = schedule.createdAt
+            if (schedule.name != null) it[name] = schedule.name
+            if (schedule.createdAt != null) it[createdAt] = schedule.createdAt
         }
         
         return@transaction updated == 1

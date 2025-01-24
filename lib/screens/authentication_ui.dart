@@ -27,14 +27,15 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: Center(
+              child: const Center(
                 child:
-                LottieBuilder.asset(
+                  Image(image: AssetImage('assets/images/logo-placeholder-image.png'),
+                /*LottieBuilder.asset(
                   "assets/images/logo.json",
                   repeat: false,
                   onLoaded: (composition) {
                     debugPrint('Animation Loaded');
-                  },
+                  },*/
                 ),
               ),
             ),

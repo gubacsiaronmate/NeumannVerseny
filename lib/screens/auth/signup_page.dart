@@ -1,6 +1,7 @@
 import 'package:on_time/common/common.dart';
-import 'package:on_time/screens/fade_animationtest.dart';
-import 'package:on_time/widgets/custom_widget.dart';
+import 'package:on_time/screens/animations/fade_animation.dart';
+import 'package:on_time/widgets/forms/custom_text_form_field.dart';
+import 'package:on_time/widgets/buttons/custom_elevated_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -48,14 +49,14 @@ class _SignupPageState extends State<SignupPage> {
                       delay: 0.9,
                       child: Text(
                         "Üdv!",
-                        style: common.titelTheme,
+                        style: common.titleTheme,
                       ),
                     ),
                     FadeInAnimation(
                       delay: 1.2,
                       child: Text(
                         "A folytatáshoz regisztráljon!",
-                        style: common.titelTheme,
+                        style: common.titleTheme,
                       ),
                     ),
                   ],

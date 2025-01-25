@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:go_router/go_router.dart';
 import 'package:on_time/common/common.dart';
 import 'package:on_time/router/router.dart';
-import 'package:on_time/screens/fade_animationtest.dart';
-import 'package:on_time/widgets/custom_widget.dart';
+import 'package:on_time/screens/animations/fade_animation.dart';
+import 'package:on_time/widgets/buttons/custom_elevated_button.dart';
 
 class AuthenticationUI extends StatefulWidget {
   const AuthenticationUI({super.key});

@@ -1,19 +1,20 @@
 import 'package:on_time/common/common.dart';
 import 'package:on_time/router/router.dart';
-import 'package:on_time/screens/fade_animationtest.dart';
-import 'package:on_time/widgets/custom_widget.dart';
+import 'package:on_time/screens/animations/fade_animation.dart';
+import 'package:on_time/widgets/forms/custom_text_form_field.dart';
+import 'package:on_time/widgets/buttons/custom_elevated_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class NewPasswordPage extends StatefulWidget {
-  const NewPasswordPage({super.key});
+class ForgetPasswordPage extends StatefulWidget {
+  const ForgetPasswordPage({super.key});
 
   @override
-  State<NewPasswordPage> createState() => _NewPasswordPageState();
+  State<ForgetPasswordPage> createState() => _ForgetPasswordPageState();
 }
 
-class _NewPasswordPageState extends State<NewPasswordPage> {
+class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   final Common common = Common();
 
   @override
@@ -29,13 +30,14 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
               FadeInAnimation(
                 delay: 1,
                 child: IconButton(
-                    onPressed: () {
-                      GoRouter.of(context).pop();
-                    },
-                    icon: const Icon(
-                      CupertinoIcons.back,
-                      size: 35,
-                    )),
+                  onPressed: () {
+                    GoRouter.of(context).pop();
+                  },
+                  icon: const Icon(
+                    CupertinoIcons.back,
+                    size: 35,
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -45,14 +47,14 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                     FadeInAnimation(
                       delay: 1.3,
                       child: Text(
-                        "Új jelszó létrehozása",
-                        style: common.titelTheme,
+                        "Elfelejtette jelszavát?",
+                        style: common.titleTheme,
                       ),
                     ),
                     FadeInAnimation(
                       delay: 1.6,
                       child: Text(
-                        "Az új jelszónak eltérőnek kell lennie az előző jelszótól.",
+                        "Kérjük, adja meg a fiókjához tartozó e-mail címet.",
                         style: common.mediumThemeblack,
                       ),
                     )
@@ -67,17 +69,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                       const FadeInAnimation(
                         delay: 1.9,
                         child: CustomTextFormField(
-                          hinttext: 'Új jelszó',
-                          obsecuretext: false,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      const FadeInAnimation(
-                        delay: 2.1,
-                        child: CustomTextFormField(
-                          hinttext: 'Jelszó megerősítése',
+                          hinttext: 'Adja meg e-mail címet',
                           obsecuretext: false,
                         ),
                       ),
@@ -85,12 +77,12 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                         height: 30,
                       ),
                       FadeInAnimation(
-                        delay: 2.4,
+                        delay: 2.1,
                         child: CustomElevatedButton(
-                          message: "Jelszó helyreállítása",
+                          message: "Kód elküldése",
                           function: () {
                             GoRouter.of(context)
-                                .pushNamed(Routers.passwordchanges.name);
+                                .pushNamed(Routers.otpverification.name);
                           },
                           color: common.black,
                         ),
@@ -99,6 +91,31 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                   ),
                 ),
               ),
+              Spacer(),
+              FadeInAnimation(
+                delay: 2.4,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 50),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Don’t have an account?",
+                        style: common.hinttext,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            GoRouter.of(context)
+                                .pushNamed(Routers.signuppage.name);
+                          },
+                          child: Text(
+                            "Register Now",
+                            style: common.mediumTheme,
+                          )),
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
         ),

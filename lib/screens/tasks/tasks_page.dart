@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:on_time/common/common.dart';
 
-class WorkoutPage extends StatelessWidget {
-  const WorkoutPage({super.key});
+class TasksPage extends StatelessWidget {
+  const TasksPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +17,8 @@ class WorkoutPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Workout Page Content',
-                  style: common.titelTheme,
+                  'Tasks Page Content',
+                  style: common.titleTheme,
                 ),
                 const SizedBox(height: 1000),
                 Text(

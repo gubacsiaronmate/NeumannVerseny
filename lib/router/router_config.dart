@@ -1,13 +1,12 @@
 import 'package:on_time/router/router.dart';
-import 'package:on_time/screens/authentication_ui.dart';
-import 'package:on_time/screens/forget_password.dart';
+import 'package:on_time/screens/auth/authentication_ui.dart';
+import 'package:on_time/screens/auth/forget_password.dart';
 import 'package:on_time/screens/home_page.dart';
-import 'package:on_time/screens/login_page.dart';
-import 'package:on_time/screens/new_password.dart';
-import 'package:on_time/screens/otp_verification.dart';
-import 'package:on_time/screens/password_changed.dart';
-import 'package:on_time/screens/signup_page.dart';
-import 'package:on_time/screens/home_page.dart';
+import 'package:on_time/screens/auth/login_page.dart';
+import 'package:on_time/screens/auth/new_password.dart';
+import 'package:on_time/screens/auth/otp_verification.dart';
+import 'package:on_time/screens/auth/password_changed.dart';
+import 'package:on_time/screens/auth/signup_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 

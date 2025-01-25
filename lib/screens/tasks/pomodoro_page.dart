@@ -25,9 +25,9 @@ class _PomodoroPageState extends State<PomodoroPage> {
     if (_timer == null || !_timer!.isActive) {
       _timer = Timer.periodic(
         const Duration(seconds: 1),
-        (timer) {
+            (timer) {
           setState(
-            () {
+                () {
               if (_remainingTime > 0) {
                 _remainingTime--;
               } else {
@@ -77,18 +77,16 @@ class _PomodoroPageState extends State<PomodoroPage> {
 
   @override
   Widget build(BuildContext context) {
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pomodoro Timer'),
-        backgroundColor: common.maincolor,
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               _isWorking ? 'Work Time' : 'Break Time',
-              style: common.titelTheme.copyWith(color: common.white),
+              style: common.titleTheme.copyWith(color: textColor),
             ),
             const SizedBox(height: 20),
             Stack(
@@ -100,12 +98,12 @@ class _PomodoroPageState extends State<PomodoroPage> {
                   child: CircularProgressIndicator(
                     value: _getProgress(),
                     strokeWidth: 10,
-                    color: common.white,
+                    color: textColor,
                   ),
                 ),
                 Text(
                   _formatTime(_remainingTime),
-                  style: common.titelTheme.copyWith(color: common.white),
+                  style: common.titleTheme.copyWith(color: textColor),
                 ),
               ],
             ),
@@ -115,34 +113,34 @@ class _PomodoroPageState extends State<PomodoroPage> {
               children: [
                 ElevatedButton(
                   onPressed: _startTimer,
-                  child: Text('Start', style: common.semiboldwhite),
                   style:
-                      ElevatedButton.styleFrom(backgroundColor: common.black),
+                  ElevatedButton.styleFrom(backgroundColor: common.black),
+                  child: Text('Start', style: common.semiboldwhite),
                 ),
                 const SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: _stopTimer,
-                  child: Text('Stop', style: common.semiboldwhite),
                   style:
-                      ElevatedButton.styleFrom(backgroundColor: common.black),
+                  ElevatedButton.styleFrom(backgroundColor: common.black),
+                  child: Text('Stop', style: common.semiboldwhite),
                 ),
                 const SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: _resetTimer,
-                  child: Text('Reset', style: common.semiboldwhite),
                   style:
-                      ElevatedButton.styleFrom(backgroundColor: common.black),
+                  ElevatedButton.styleFrom(backgroundColor: common.black),
+                  child: Text('Reset', style: common.semiboldwhite),
                 ),
               ],
             ),
             const SizedBox(height: 20),
             Text(
               'Completed Work Sessions: $_completedWorkSessions',
-              style: common.mediumTheme,
+              style: common.mediumTheme.copyWith(color: textColor),
             ),
             Text(
               'Completed Break Sessions: $_completedBreakSessions',
-              style: common.mediumTheme,
+              style: common.mediumTheme.copyWith(color: textColor),
             ),
           ],
         ),

@@ -5,7 +5,7 @@ class Common {
   Color white = const Color(0xFFF5F5F5);
   Color black = const Color(0xFF0D1315);
 
-  TextStyle titelTheme = const TextStyle(
+  TextStyle titleTheme = const TextStyle(
     fontSize: 30,
     fontFamily: "Urbanist",
     fontWeight: FontWeight.bold,

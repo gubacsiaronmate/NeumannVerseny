@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import '../widgets/app_bar.dart';
-import '../widgets/end_drawer.dart';
-import '../widgets/bottom_navigation_bar.dart';
-import '../screens/tasks_page.dart' as tasks;
-import '../screens/workout_page.dart' as workout;
-import '../screens/pomodoro_page.dart' as pomodoro;
-import '../widgets/page_content.dart';
+import '../widgets/app_bar/app_bar.dart';
+import '../widgets/navigation/end_drawer.dart';
+import 'tasks/tasks_page.dart' as tasks;
+import 'workout/workout_page.dart' as workout;
+import 'tasks/pomodoro_page.dart' as pomodoro;
+import '../widgets/misc/page_content.dart';
 import 'package:on_time/common/common.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,6 +27,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final unselectedItemColor = isDarkMode ? Colors.white70 : common.black;
+
     return Scaffold(
       appBar: const CustomAppBar(),
       endDrawer: const CustomEndDrawer(),
@@ -42,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Text(
                     "Welcome Back!",
-                    style: common.titelTheme.copyWith(color: common.black),
+                    style: common.titleTheme,
                   ),
                 ),
               Expanded(
@@ -54,13 +56,34 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
+        backgroundColor: common.white,
+        selectedItemColor: common.maincolor,
+        unselectedItemColor: unselectedItemColor,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.task),
+            label: 'Tasks',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fitness_center),
+            label: 'Workout',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.timer),
+            label: 'Pomodoro',
+          ),
+        ],
       ),
     );
   }

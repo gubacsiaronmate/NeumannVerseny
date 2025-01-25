@@ -1,13 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:on_time/common/common.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
-//todo: sort widgets into different files.
 
 class CustomTextFormField extends StatefulWidget {
   final String hinttext;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Common {
-  Color maincolor = const Color(0xFF35C2C1);
+  Color maincolor = const Color(0xFF248F8F);
   Color white = const Color(0xFFF5F5F5);
-  Color black = const Color(0xFF0D1315);
+  Color black = const Color(0xFF141414);
 
   TextStyle titleTheme = const TextStyle(
     fontSize: 30,

@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:on_time/common/common.dart';
+import '../../common/common.dart';
 
 class CustomElevatedButton extends StatefulWidget {
   final String message;
+  final IconData? icon;
   final FutureOr<void> Function() function;
   final Color? color;
   final ButtonStyle? style;
@@ -12,6 +13,7 @@ class CustomElevatedButton extends StatefulWidget {
   const CustomElevatedButton({
     Key? key,
     required this.message,
+    this.icon,
     required this.function,
     this.color = Colors.white,
     this.style,
@@ -51,11 +53,20 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
       ),
       child: loading
           ? const CupertinoActivityIndicator()
-          : FittedBox(
-        child: Text(
-          widget.message,
-          style: Common().semiboldwhite,
-        ),
+          : Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (widget.icon != null) ...[
+            Icon(widget.icon, color: Colors.white),
+            const SizedBox(width: 5),
+          ],
+          FittedBox(
+            child: Text(
+              widget.message,
+              style: Common().semiboldwhite,
+            ),
+          ),
+        ],
       ),
     );
   }

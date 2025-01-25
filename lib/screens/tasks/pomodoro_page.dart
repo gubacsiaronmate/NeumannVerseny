@@ -13,8 +13,8 @@ class PomodoroPage extends StatefulWidget {
 }
 
 class _PomodoroPageState extends State<PomodoroPage> {
-  static const int workDuration = 25 * 60; // 25 minutes
-  static const int breakDuration = 5 * 60; // 5 minutes
+  static const int workDuration = 25; // 25 minutes
+  static const int breakDuration = 5; // 5 minutes
 
   Timer? _timer;
   int _remainingTime = workDuration;
@@ -30,7 +30,7 @@ class _PomodoroPageState extends State<PomodoroPage> {
     if (_timer == null || !_timer!.isActive) {
       _timer = Timer.periodic(
         const Duration(seconds: 1),
-        (timer) {
+            (timer) {
           setState(() {
             if (_remainingTime > 0) {
               _remainingTime--;
@@ -90,6 +90,12 @@ class _PomodoroPageState extends State<PomodoroPage> {
     return '$minutes:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 
+  String _calculateEndTime() {
+    final DateTime now = DateTime.now();
+    final DateTime endTime = now.add(Duration(seconds: _remainingTime));
+    return '${endTime.hour}:${endTime.minute.toString().padLeft(2, '0')}';
+  }
+
   double _getProgress() {
     final int totalDuration = _isWorking ? workDuration : breakDuration;
     return _remainingTime / totalDuration;
@@ -108,78 +114,136 @@ class _PomodoroPageState extends State<PomodoroPage> {
         Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black;
 
     return Scaffold(
-      body: Container(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                _isWorking ? 'Work Time' : 'Break Time',
-                style: common.titleTheme.copyWith(color: textColor),
-              ),
-              const SizedBox(height: 20),
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  SizedBox(
-                    width: 225,
-                    height: 225,
-                    child: AnimatedCircularProgressIndicator(
-                      value: _getProgress(),
-                      strokeWidth: 20,
-                      color: textColor,
-                    ),
-                  ),
-                  Text(
-                    _formatTime(_remainingTime),
-                    style: common.titleTheme.copyWith(color: textColor),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Row(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // Space between the top and bottom sections
+        children: [
+          // Centered part
+          Expanded(
+            child: Center(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomElevatedButton(
-                    message: _isPaused ? 'Resume' : 'Start',
-                    function: _isPaused ? _resumeTimer : _startTimer,
-                    color: common.black,
-                    style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all(const Size(100, 50)),
-                    ),
+                  Text(
+                    _isWorking ? 'Work Time' : 'Break Time',
+                    style: common.titleTheme.copyWith(color: textColor),
                   ),
-                  const SizedBox(width: 10),
-                  CustomElevatedButton(
-                    message: 'Pause',
-                    function: _pauseTimer,
-                    color: common.black,
-                    style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all(const Size(100, 50)),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  CustomElevatedButton(
-                    message: 'Reset',
-                    function: _resetTimer,
-                    color: common.black,
-                    style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all(const Size(100, 50)),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SizedBox(
+                          width: 250,
+                          height: 250,
+                          child: AnimatedCircularProgressIndicator(
+                            value: _getProgress(),
+                            strokeWidth: 20,
+                            color: textColor,
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              _formatTime(_remainingTime),
+                              style: common.titleTheme.copyWith(
+                                  color: textColor),
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.notifications_rounded, color: textColor),
+                                const SizedBox(width: 5),
+                                Text(
+                                  _calculateEndTime(),
+                                  style: common.mediumTheme.copyWith(
+                                      color: textColor),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
-              Text(
-                'Completed Work Sessions: $_completedWorkSessions',
-                style: common.mediumTheme.copyWith(color: textColor),
-              ),
-              Text(
-                'Completed Break Sessions: $_completedBreakSessions',
-                style: common.mediumTheme.copyWith(color: textColor),
-              ),
-            ],
+            ),
           ),
-        ),
+          // Bottom part
+          Padding(
+            padding: const EdgeInsets.only(bottom: 40.0),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: CustomElevatedButton(
+                      message: _isPaused ? 'Resume' : 'Start',
+                      icon: _isPaused ? Icons.play_arrow : Icons.play_arrow,
+                      function: _isPaused ? _resumeTimer : _startTimer,
+                      color: common.black,
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        fixedSize: MaterialStateProperty.all(const Size(130, 50)),
+                        side: MaterialStateProperty.all(
+                          const BorderSide(color: Colors.grey),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Flexible(
+                    child: CustomElevatedButton(
+                      message: 'Pause',
+                      icon: Icons.pause,
+                      function: _pauseTimer,
+                      color: common.black,
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        fixedSize: MaterialStateProperty.all(const Size(130, 50)),
+                        side: MaterialStateProperty.all(
+                          const BorderSide(color: Colors.grey),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Flexible(
+                    child: CustomElevatedButton(
+                      message: 'Reset',
+                      icon: Icons.refresh,
+                      function: _resetTimer,
+                      color: common.black,
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        fixedSize: MaterialStateProperty.all(const Size(130, 50)),
+                        side: MaterialStateProperty.all(
+                          const BorderSide(color: Colors.grey),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -207,6 +271,9 @@ class AnimatedCircularProgressIndicator extends StatelessWidget {
           value: value,
           strokeWidth: strokeWidth,
           color: color,
+          backgroundColor: color.withOpacity(0.2),
+          valueColor: AlwaysStoppedAnimation<Color>(color),
+          strokeCap: StrokeCap.round,
         );
       },
     );

@@ -40,3 +40,6 @@ docs
 Dockerfile
 .dockerignore
 webserver.env
+
+### Unused/ Unimportant ###
+src/main/kotlin/com/debdevs/email/test.html

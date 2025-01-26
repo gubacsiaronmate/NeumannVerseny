@@ -1,3 +1,5 @@
+@file:Suppress("ktPropBy")
+
 val exposedVersion: String by project
 val postgresVersion: String by project
 val kotlinVersion: String by project
@@ -48,6 +50,8 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation-jvm")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
     implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
+    implementation("at.favre.lib:bcrypt:0.9.0")
+    implementation("com.sun.mail:javax.mail:1.6.2")
 //    implementation("org.jetbrains.exposed:exposed-crypt:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")

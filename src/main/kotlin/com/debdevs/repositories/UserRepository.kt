@@ -23,7 +23,7 @@ suspend fun getAllUsers(): List<User> = withContext(Dispatchers.IO) {
             User(
                 id = it[Users.id],
                 email = it[Users.email],
-                password = it[Users.password],
+                _password = it[Users.password],
                 tier = it[Users.tier]
             )
         }
@@ -43,7 +43,7 @@ suspend fun getUserById(id: Int): User? = withContext(Dispatchers.IO) {
             User(
                 id = it[Users.id],
                 email = it[Users.email],
-                password = it[Users.password],
+                _password = it[Users.password],
                 tier = it[Users.tier]
             )
         }
@@ -56,7 +56,7 @@ suspend fun getUserById(id: Int): User? = withContext(Dispatchers.IO) {
  * @param user The user object to be added to the database.
  * @return `true` if the user was successfully added, `false` otherwise.
  */
-suspend fun addUser(user: User): Boolean = withContext(Dispatchers.IO) {
+suspend fun addUser(user: User): Int = withContext(Dispatchers.IO) {
     return@withContext transaction {
         val id = Users.insert {
             if (user.id != null) it[id] = user.id
@@ -65,7 +65,7 @@ suspend fun addUser(user: User): Boolean = withContext(Dispatchers.IO) {
             if (user.tier != null) it[tier] = user.tier
         } get Users.id
 
-        return@transaction Users.selectAll().firstOrNull { it[Users.id] == id } != null
+        return@transaction id
     }
 }
 
@@ -98,5 +98,19 @@ suspend fun updateUser(user: User): Boolean = withContext(Dispatchers.IO) {
         }
 
         return@transaction updated == 1
+    }
+}
+
+suspend fun getUserByEmail(email: String): User? = withContext(Dispatchers.IO) {
+    return@withContext transaction {
+        val user = Users.selectAll().firstOrNull { it[Users.email] == email }
+        return@transaction user?.let {
+            User(
+                id = it[Users.id],
+                email = it[Users.email],
+                _password = it[Users.password],
+                tier = it[Users.tier]
+            )
+        }
     }
 }

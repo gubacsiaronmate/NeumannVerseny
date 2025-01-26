@@ -16,7 +16,7 @@ fun Application.module() = runBlocking {
     configureHTTP()
     configureMonitoring()
     configureSerialization()
-    println("Databases.kt:\n\tdbUsername: $dbUsername\n\tdbPassword: $dbPassword")
+    println("Application.kt:\n\tdbUsername: $dbUsername\n\tdbPassword: $dbPassword")
     if (dbUsername != null && dbPassword != null) async(Dispatchers.Default) { configureDatabases(dbUsername, dbPassword) }.await()
     else throw Exception("Database credentials not found in environment variables")
     configureSockets()

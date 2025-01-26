@@ -1,15 +1,16 @@
 package com.debdevs.data
 
 import kotlinx.datetime.LocalTime
+import kotlinx.serialization.Required
 import kotlinx.serialization.Serializable
 import java.util.regex.Pattern.compile
 
 @Serializable
 data class ScheduleEntry(
     val id: Int? = null,
-    val scheduleId: Int,
-    val startTime: LocalTime,
-    val endTime: LocalTime,
+    @Required val scheduleId: Int,
+    @Required val startTime: LocalTime,
+    @Required val endTime: LocalTime,
     val title: String? = null,
     val description: String? = null
 ) {

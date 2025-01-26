@@ -1,30 +1,25 @@
 package com.debdevs.data
 
+import com.debdevs.email.Verifier
+import com.debdevs.security.hashPassword
+import kotlinx.serialization.Required
 import kotlinx.serialization.Serializable
-import java.util.regex.Pattern.compile
 
 @Serializable
 data class User(
     val id: Int? = null,
-    val email: String,
-    val password: String,
+    @Required val email: String,
+    private var _password : String,
     val tier: Int? = null
 ) {
-    private fun String.isEmailValid(): Boolean {
-        val emailRegex = compile(
-            "[a-zA-Z0-9+._%\\-]{1,256}" + "@" +
-            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
-            "(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+"
-        )
-        return emailRegex.matcher(this).matches()
-    }
+    @Required var password: String
+        get() = _password
+        set(value) { _password = hashPassword(value) }
 
     init {
         require (id != null && id < 0) { "Id cannot be negative" }
-        require (email.isBlank() || password.isBlank()) { "Email and password cannot be blank" }
-        require (!email.isEmailValid()) { "Email is not valid" }
+        require (password.isNotBlank()) { "Email and password cannot be blank" }
+        require (!Verifier(email).isEmailValid()) { "Email is not valid" }
         require (tier != null && tier < 0) { "Tier cannot be negative" }
-
-        // TODO: implement extra hashing for password
     }
 }

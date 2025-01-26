@@ -4,6 +4,11 @@ ktor:
             - com.debdevs.ApplicationKt.module
     deployment:
         port: 8080
+        shutdown:
+            url: "/shutdown/key/3308820741"
     database:
         db_user: $NEUMANN_DB_USERNAME
         db_password: $NEUMANN_DB_PASSWORD
+    email:
+        host: $FROM_EMAIL
+        email_pw: $EMAIL_PASSWORD

@@ -31,21 +31,6 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void _login() async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        await appwriteService.loginUser(
-          email: _emailController.text.trim(),
-          secret: _passwordController.text.trim(),
-          userId: ID.unique(),
-        );
-        GoRouter.of(context).pushNamed(Routers.homepage.name);
-      } catch (e) {
-        _showErrorDialog("Login failed: ${e.toString()}");
-      }
-    }
-  }
-
   void _showErrorDialog(String message) {
     showDialog(
       context: context,
@@ -60,6 +45,21 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+  }
+
+  void _login() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await appwriteService.loginUser(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+        // Navigate to the home page or show a success message
+        GoRouter.of(context).pushNamed(Routers.homepage.name);
+      } catch (e) {
+        _showErrorDialog('Nem sikerült bejelentkezni. Ellenőrizze az adatait.');
+      }
+    }
   }
 
   @override

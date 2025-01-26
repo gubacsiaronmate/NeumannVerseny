@@ -37,59 +37,26 @@ class AppwriteService {
     }
   }
 
-  String? _currentSessionId;
-
-  /// Log in an existing user
   Future<void> loginUser({
     required String email,
-    required String secret,
-    required String userId,
+    required String password,
   }) async {
     try {
-      final session = await _account.createEmailPasswordSession(
-        email: email,
-        password: secret,
-      );
-      _currentSessionId = session.$id;
-      print('Login successful: ${session.userId}');
-    } on AppwriteException catch (e) { // Use 'on' for specific exception types
-      if (e.code == 401) {
-        print('Invalid credentials.');
-      } else if (e.code == 404) {
-        print('Account does not exist.');
-      } else {
-        print('Login failed: $e');
-      }
-    } catch (e) { // General catch block for other exceptions
-      print('Login failed: $e');
-    }
-  }
-
-
-  /// Log out the current user
-  Future<void> logoutUser() async {
-    try {
-      if (_currentSessionId != null) {
-        await _account.deleteSession(sessionId: _currentSessionId!);
-        print('Logout successful!');
-        _currentSessionId = null;
-      } else {
-        print('No session ID available for logout.');
-      }
+      await _account.createEmailPasswordSession(email: email, password: password);
+      print('Login successful!');
     } catch (e) {
-      print('Logout Error: $e');
+      print('Login Error: $e');
       rethrow;
     }
   }
 
-
-  /// Get current user details
-  Future<void> getUser() async {
+  /// Logout user
+  Future<void> logoutUser() async {
     try {
-      final user = await _account.get();
-      print('User: ${user.name}');
+      await _account.deleteSession(sessionId:'current');
+      print('Logout successful!');
     } catch (e) {
-      print('Get User Error: $e');
+      print('Logout Errorecs: $e');
       rethrow;
     }
   }

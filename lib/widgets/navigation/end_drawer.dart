@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:on_time/appwrite/appwrite_service.dart';
+
+import '../../router/router.dart';
 
 class CustomEndDrawer extends StatelessWidget {
   const CustomEndDrawer({super.key});
@@ -37,13 +40,14 @@ class CustomEndDrawer extends StatelessWidget {
             onTap: () async {
               try {
                 await appwriteService.logoutUser();
-                Navigator.pop(context);
+                Navigator.of(context).pop();
+                GoRouter.of(context).pushNamed(Routers.loginpage.name);
                 print('User logged out!');
               } catch (e) {
                 print('Error during logout: $e');
               }
             },
-          ),
+          )
         ],
       ),
     );

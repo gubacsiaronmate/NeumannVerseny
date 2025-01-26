@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
   void _login() async {
     if (_formKey.currentState!.validate()) {
       try {
-        await appwriteService.loginUser(
+        await AppwriteService().loginUser(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );

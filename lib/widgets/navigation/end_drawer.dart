@@ -41,7 +41,9 @@ class CustomEndDrawer extends StatelessWidget {
               try {
                 await appwriteService.logoutUser();
                 Navigator.of(context).pop();
-                GoRouter.of(context).pushNamed(Routers.loginpage.name);
+                GoRouter.of(context).replace(
+                  Routers.loginpage.name,
+                );
                 print('User logged out!');
               } catch (e) {
                 print('Error during logout: $e');

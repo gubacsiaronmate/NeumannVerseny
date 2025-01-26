@@ -244,6 +244,30 @@ class _SignupPageState extends State<SignupPage> {
                         color: common.black,
                       ),
                     ),
+                    const SizedBox(height: 30),
+                    FadeInAnimation(
+                      delay: 2.2,
+                      child: Column(
+                        children: [
+                          Text(
+                            "vagy jelentkezzen be ezzel",
+                            style: common.semiboldblack,
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SvgPicture.asset("assets/images/facebook_ic.svg"),
+                              SvgPicture.asset("assets/images/google_ic.svg"),
+                              Image.asset(
+                                "assets/images/Vector.png",
+                                color: Colors.grey,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

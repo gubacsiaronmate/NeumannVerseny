@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Common {
-  Color maincolor = const Color(0xFF248F8F);
+  Color maincolor = const Color(0xFF2ECC71);
   Color white = const Color(0xFFF5F5F5);
   Color black = const Color(0xFF141414);
 

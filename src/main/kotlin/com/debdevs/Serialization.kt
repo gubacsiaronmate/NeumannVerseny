@@ -5,7 +5,9 @@ import com.debdevs.data.ScheduleEntry
 import com.debdevs.data.User
 import com.debdevs.email.EmailService
 import com.debdevs.email.OTPGenerator
+import com.debdevs.email.Verifier
 import com.debdevs.repositories.*
+import com.debdevs.security.hashPassword
 import com.debdevs.security.verifyPassword
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
@@ -306,7 +308,7 @@ fun Application.configureSerialization() {
                     )
                 }
 
-                val storedUser = getUserByEmail(user.email)
+                val storedUser = getUserByEmail(user.email) /*?: return@post call.respond()*/
 
                 call.respond(
                     status = HttpStatusCode.OK,
@@ -366,7 +368,10 @@ fun Application.configureSerialization() {
 
                 try {
                     email = call.receive<Email>()
-
+                    if (!Verifier(email).isEmailValid()) return@post call.respond(
+                        status = HttpStatusCode.BadRequest,
+                        "Invalid email format"
+                    )
                 }
                 catch (e: Exception) {
                     return@post call.respondText(
@@ -397,42 +402,46 @@ fun Application.configureSerialization() {
                         )
 
                     @Suppress("LABEL_NAME_CLASH")
-                    if (code != otpGeneratorContent.otp) return@post call.respond(
-                        status = HttpStatusCode.Unauthorized,
-                        "Invalid code"
-                    )
-
-                    post("/newpassword") {
-                        val newUser: User
-                        try { newUser = call.receive<User>() }
-                        catch (e: Exception) {
-                            @Suppress("LABEL_NAME_CLASH")
-                            return@post call.respondText(
-                                e.message ?: "Could not receive User",
-                                status = HttpStatusCode.BadRequest
-                            )
-                        }
-
-                        @Suppress("LABEL_NAME_CLASH") val storedUser =
-                            if (newUser.id != null) getUserById(newUser.id)
-                                ?: return@post call.respond(
-                                    status = HttpStatusCode.InternalServerError,
-                                    "User not found"
-                                )
-                            else getUserByEmail(email)
-                                ?: return@post call.respond(
-                                    status = HttpStatusCode.InternalServerError,
-                                    "User not found"
-                                )
-                        storedUser.password = newUser.password
+                    return@post if (code != otpGeneratorContent.otp)
                         call.respond(
-                            status = HttpStatusCode.OK,
-                            if (updateUser(storedUser))
-                                "Password changed successfully"
-                            else HttpStatusCode.NotModified
+                            status = HttpStatusCode.Unauthorized,
+                            "Invalid code"
                         )
-                    }
+                    else call.respond(
+                        status = HttpStatusCode.OK,
+                        "Code is valid"
+                    )
                 }
+            }
+
+            post("/newpassword") {
+                val newUser: User
+                try { newUser = call.receive<User>() }
+                catch (e: Exception) {
+                    return@post call.respondText(
+                        e.message ?: "Could not receive User",
+                        status = HttpStatusCode.BadRequest
+                    )
+                }
+
+                val storedUser =
+                    if (newUser.id != null) getUserById(newUser.id)
+                        ?: return@post call.respond(
+                            status = HttpStatusCode.InternalServerError,
+                            "User not found"
+                        )
+                    else getUserByEmail(newUser.email)
+                        ?: return@post call.respond(
+                            status = HttpStatusCode.InternalServerError,
+                            "User not found"
+                        )
+                storedUser.password = hashPassword(newUser.password)
+                call.respond(
+                    status = HttpStatusCode.OK,
+                    if (updateUser(storedUser))
+                        "Password changed successfully"
+                    else HttpStatusCode.NotModified
+                )
             }
         }
     }

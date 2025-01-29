@@ -49,7 +49,9 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FadeInAnimation(
-                delay: 1,
+                duration: const Duration(milliseconds: 500),
+                startDelay: const Duration(milliseconds: 40),
+                direction: FadeInDirection.up,
                 child: IconButton(
                   onPressed: () {
                     GoRouter.of(context).pop();
@@ -66,19 +68,23 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FadeInAnimation(
-                      delay: 1.3,
+                      duration: const Duration(milliseconds: 625),
+                      startDelay: const Duration(milliseconds: 50),
+                      direction: FadeInDirection.up,
                       child: Text(
                         "Kétfaktoros Hitelesítés",
                         style: common.titleTheme,
                       ),
                     ),
                     FadeInAnimation(
-                      delay: 1.6,
+                      duration: const Duration(milliseconds: 750),
+                      startDelay: const Duration(milliseconds: 60),
+                      direction: FadeInDirection.up,
                       child: Text(
                         "Írja be az ellenőrző kódot, amelyet az imént küldtünk az e-mail címére.",
                         style: common.mediumThemeblack,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -88,7 +94,9 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   child: Column(
                     children: [
                       FadeInAnimation(
-                        delay: 1.9,
+                        duration: const Duration(milliseconds: 875),
+                        startDelay: const Duration(milliseconds: 70),
+                        direction: FadeInDirection.up,
                         child: Pinput(
                           defaultPinTheme: defaultPinTheme,
                           focusedPinTheme: focusedPinTheme,
@@ -97,7 +105,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                             return s == '2222' ? null : 'A kód hibás';
                           },
                           pinputAutovalidateMode:
-                              PinputAutovalidateMode.onSubmit,
+                          PinputAutovalidateMode.onSubmit,
                           showCursor: true,
                           onCompleted: (pin) {
                             print(pin);
@@ -108,7 +116,9 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                         height: 30,
                       ),
                       FadeInAnimation(
-                        delay: 2.1,
+                        duration: const Duration(milliseconds: 1000),
+                        startDelay: const Duration(milliseconds: 80),
+                        direction: FadeInDirection.up,
                         child: CustomElevatedButton(
                           message: "Megerősítés",
                           function: () {

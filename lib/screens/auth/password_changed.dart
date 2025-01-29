@@ -31,14 +31,18 @@ class _PasswordChangesPageState extends State<PasswordChangesPage> {
               },
             ),
             FadeInAnimation(
-              delay: 1,
+              duration: const Duration(milliseconds: 500),
+              startDelay: const Duration(milliseconds: 40),
+              direction: FadeInDirection.up,
               child: Text(
                 "Jelszó megváltoztatva!",
                 style: common.titleTheme,
               ),
             ),
             FadeInAnimation(
-              delay: 1.5,
+              duration: const Duration(milliseconds: 625),
+              startDelay: const Duration(milliseconds: 50),
+              direction: FadeInDirection.up,
               child: Text(
                 "Jelszavát sikeresen megváltoztattuk",
                 style: common.mediumThemeblack,
@@ -48,7 +52,9 @@ class _PasswordChangesPageState extends State<PasswordChangesPage> {
               height: 30,
             ),
             FadeInAnimation(
-              delay: 2,
+              duration: const Duration(milliseconds: 750),
+              startDelay: const Duration(milliseconds: 60),
+              direction: FadeInDirection.up,
               child: CustomElevatedButton(
                 message: "Vissza a bejelentkezéshez",
                 function: () {

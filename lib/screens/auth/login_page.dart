@@ -30,7 +30,9 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               FadeInAnimation(
-                delay: 1,
+                duration: const Duration(milliseconds: 500),
+                startDelay: const Duration(milliseconds: 40),
+                direction: FadeInDirection.up,
                 child: IconButton(
                   onPressed: () {
                     GoRouter.of(context)
@@ -48,14 +50,18 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FadeInAnimation(
-                      delay: 1.3,
+                      duration: const Duration(milliseconds: 625),
+                      startDelay: const Duration(milliseconds: 50),
+                      direction: FadeInDirection.up,
                       child: Text(
                         "Üdvözöljük!",
                         style: common.titleTheme,
                       ),
                     ),
                     FadeInAnimation(
-                      delay: 1.6,
+                      duration: const Duration(milliseconds: 750),
+                      startDelay: const Duration(milliseconds: 60),
+                      direction: FadeInDirection.up,
                       child: Text(
                         "Örülünk, hogy újra láthatjuk!",
                         style: common.titleTheme,
@@ -70,7 +76,9 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       const FadeInAnimation(
-                        delay: 1.9,
+                        duration: Duration(milliseconds: 875),
+                        startDelay: Duration(milliseconds: 70),
+                        direction: FadeInDirection.up,
                         child: CustomTextFormField(
                           hinttext: 'Adja meg e-mail címet',
                           obsecuretext: false,
@@ -80,7 +88,9 @@ class _LoginPageState extends State<LoginPage> {
                         height: 10,
                       ),
                       FadeInAnimation(
-                        delay: 2.2,
+                        duration: const Duration(milliseconds: 1000),
+                        startDelay: const Duration(milliseconds: 80),
+                        direction: FadeInDirection.up,
                         child: TextFormField(
                           obscureText: flag ? true : false,
                           decoration: InputDecoration(
@@ -102,7 +112,9 @@ class _LoginPageState extends State<LoginPage> {
                         height: 10,
                       ),
                       FadeInAnimation(
-                        delay: 2.5,
+                        duration: const Duration(milliseconds: 1125),
+                        startDelay: const Duration(milliseconds: 90),
+                        direction: FadeInDirection.up,
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: GestureDetector(
@@ -125,7 +137,9 @@ class _LoginPageState extends State<LoginPage> {
                         height: 10,
                       ),
                       FadeInAnimation(
-                        delay: 2.8,
+                        duration: const Duration(milliseconds: 1250),
+                        startDelay: const Duration(milliseconds: 100),
+                        direction: FadeInDirection.up,
                         child: CustomElevatedButton(
                           message: "Bejelentkezés",
                           function: () {
@@ -150,7 +164,9 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       FadeInAnimation(
-                        delay: 2.2,
+                        duration: const Duration(milliseconds: 1375),
+                        startDelay: const Duration(milliseconds: 110),
+                        direction: FadeInDirection.up,
                         child: Text(
                           "vagy jelentkezzen be ezzel",
                           style: common.semiboldblack,
@@ -160,7 +176,9 @@ class _LoginPageState extends State<LoginPage> {
                         height: 20,
                       ),
                       FadeInAnimation(
-                        delay: 2.4,
+                        duration: const Duration(milliseconds: 1500),
+                        startDelay: const Duration(milliseconds: 120),
+                        direction: FadeInDirection.up,
                         child: Padding(
                           padding: const EdgeInsets.only(
                               top: 10, bottom: 10, right: 30, left: 30),
@@ -184,7 +202,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               FadeInAnimation(
-                delay: 2.8,
+                duration: const Duration(milliseconds: 1625),
+                startDelay: const Duration(milliseconds: 130),
+                direction: FadeInDirection.up,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 50),
                   child: Row(

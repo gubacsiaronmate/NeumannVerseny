@@ -29,7 +29,9 @@ class _SignupPageState extends State<SignupPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               FadeInAnimation(
-                delay: 0.6,
+                duration: const Duration(milliseconds: 500),
+                startDelay: const Duration(milliseconds: 40),
+                direction: FadeInDirection.up,
                 child: IconButton(
                   onPressed: () {
                     GoRouter.of(context).pop();
@@ -46,14 +48,18 @@ class _SignupPageState extends State<SignupPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FadeInAnimation(
-                      delay: 0.9,
+                      duration: const Duration(milliseconds: 625),
+                      startDelay: const Duration(milliseconds: 50),
+                      direction: FadeInDirection.up,
                       child: Text(
                         "Üdv!",
                         style: common.titleTheme,
                       ),
                     ),
                     FadeInAnimation(
-                      delay: 1.2,
+                      duration: const Duration(milliseconds: 750),
+                      startDelay: const Duration(milliseconds: 60),
+                      direction: FadeInDirection.up,
                       child: Text(
                         "A folytatáshoz regisztráljon!",
                         style: common.titleTheme,
@@ -68,7 +74,9 @@ class _SignupPageState extends State<SignupPage> {
                   child: Column(
                     children: [
                       const FadeInAnimation(
-                        delay: 1.5,
+                        duration: Duration(milliseconds: 875),
+                        startDelay: Duration(milliseconds: 70),
+                        direction: FadeInDirection.up,
                         child: CustomTextFormField(
                           hinttext: 'Felhasználónév',
                           obsecuretext: false,
@@ -78,7 +86,9 @@ class _SignupPageState extends State<SignupPage> {
                         height: 10,
                       ),
                       const FadeInAnimation(
-                        delay: 1.8,
+                        duration: Duration(milliseconds: 1000),
+                        startDelay: Duration(milliseconds: 80),
+                        direction: FadeInDirection.up,
                         child: CustomTextFormField(
                           hinttext: 'E-mail',
                           obsecuretext: false,
@@ -88,7 +98,9 @@ class _SignupPageState extends State<SignupPage> {
                         height: 10,
                       ),
                       const FadeInAnimation(
-                        delay: 2.1,
+                        duration: Duration(milliseconds: 1125),
+                        startDelay: Duration(milliseconds: 90),
+                        direction: FadeInDirection.up,
                         child: CustomTextFormField(
                           hinttext: 'Jelszó',
                           obsecuretext: true,
@@ -98,7 +110,9 @@ class _SignupPageState extends State<SignupPage> {
                         height: 10,
                       ),
                       const FadeInAnimation(
-                        delay: 2.4,
+                        duration: Duration(milliseconds: 1250),
+                        startDelay: Duration(milliseconds: 100),
+                        direction: FadeInDirection.up,
                         child: CustomTextFormField(
                           hinttext: 'Jelszó megerősítése',
                           obsecuretext: false,
@@ -108,7 +122,9 @@ class _SignupPageState extends State<SignupPage> {
                         height: 20,
                       ),
                       FadeInAnimation(
-                        delay: 2.7,
+                        duration: const Duration(milliseconds: 1375),
+                        startDelay: const Duration(milliseconds: 110),
+                        direction: FadeInDirection.up,
                         child: CustomElevatedButton(
                           message: "Regisztrálás",
                           function: () {},
@@ -130,7 +146,9 @@ class _SignupPageState extends State<SignupPage> {
                   child: Column(
                     children: [
                       FadeInAnimation(
-                        delay: 2.9,
+                        duration: const Duration(milliseconds: 1500),
+                        startDelay: const Duration(milliseconds: 120),
+                        direction: FadeInDirection.up,
                         child: Text(
                           "vagy regisztráljon ezzel",
                           style: common.semiboldblack,
@@ -140,7 +158,9 @@ class _SignupPageState extends State<SignupPage> {
                         height: 20,
                       ),
                       FadeInAnimation(
-                        delay: 3.2,
+                        duration: const Duration(milliseconds: 1625),
+                        startDelay: const Duration(milliseconds: 130),
+                        direction: FadeInDirection.up,
                         child: Padding(
                           padding: const EdgeInsets.only(
                               top: 10, bottom: 10, right: 30, left: 30),

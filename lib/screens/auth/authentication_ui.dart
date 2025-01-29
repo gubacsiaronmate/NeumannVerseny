@@ -46,7 +46,10 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
                     height: 60,
                   ),
                   FadeInAnimation(
-                    delay: 2,
+                    duration: const Duration(milliseconds: 500), // 250 * 2.0
+                    startDelay: const Duration(milliseconds: 40), // 20 * 2.0
+                    direction: FadeInDirection.up,
+                    distance: 30.0,
                     child: CustomElevatedButton(
                       message: "Bejelentkezés",
                       function: () {
@@ -59,7 +62,10 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
                     height: 20,
                   ),
                   FadeInAnimation(
-                    delay: 2.5,
+                    duration: const Duration(milliseconds: 625), // 250 * 2.5
+                    startDelay: const Duration(milliseconds: 50), // 20 * 2.5
+                    direction: FadeInDirection.up,
+                    distance: 30.0,
                     child: ElevatedButton(
                       onPressed: () {
                         GoRouter.of(context).pushNamed(Routers.signuppage.name);

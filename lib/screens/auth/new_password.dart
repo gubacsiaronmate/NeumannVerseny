@@ -28,7 +28,9 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FadeInAnimation(
-                delay: 1,
+                duration: const Duration(milliseconds: 500),
+                startDelay: const Duration(milliseconds: 40),
+                direction: FadeInDirection.up,
                 child: IconButton(
                     onPressed: () {
                       GoRouter.of(context).pop();
@@ -44,14 +46,18 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FadeInAnimation(
-                      delay: 1.3,
+                      duration: const Duration(milliseconds: 625),
+                      startDelay: const Duration(milliseconds: 50),
+                      direction: FadeInDirection.up,
                       child: Text(
                         "Új jelszó létrehozása",
                         style: common.titleTheme,
                       ),
                     ),
                     FadeInAnimation(
-                      delay: 1.6,
+                      duration: const Duration(milliseconds: 750),
+                      startDelay: const Duration(milliseconds: 60),
+                      direction: FadeInDirection.up,
                       child: Text(
                         "Az új jelszónak eltérőnek kell lennie az előző jelszótól.",
                         style: common.mediumThemeblack,
@@ -66,7 +72,9 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                   child: Column(
                     children: [
                       const FadeInAnimation(
-                        delay: 1.9,
+                        duration: Duration(milliseconds: 875),
+                        startDelay: Duration(milliseconds: 70),
+                        direction: FadeInDirection.up,
                         child: CustomTextFormField(
                           hinttext: 'Új jelszó',
                           obsecuretext: false,
@@ -76,7 +84,9 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                         height: 15,
                       ),
                       const FadeInAnimation(
-                        delay: 2.1,
+                        duration: Duration(milliseconds: 1000),
+                        startDelay: Duration(milliseconds: 80),
+                        direction: FadeInDirection.up,
                         child: CustomTextFormField(
                           hinttext: 'Jelszó megerősítése',
                           obsecuretext: false,
@@ -86,7 +96,9 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                         height: 30,
                       ),
                       FadeInAnimation(
-                        delay: 2.4,
+                        duration: const Duration(milliseconds: 1125),
+                        startDelay: const Duration(milliseconds: 90),
+                        direction: FadeInDirection.up,
                         child: CustomElevatedButton(
                           message: "Jelszó helyreállítása",
                           function: () {

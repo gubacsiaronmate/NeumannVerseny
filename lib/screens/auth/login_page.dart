@@ -73,16 +73,12 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               FadeInAnimation(
-                delay: 1,
+                duration: const Duration(milliseconds: 500),
+                startDelay: const Duration(milliseconds: 40),
+                direction: FadeInDirection.up,
                 child: IconButton(
-                  onPressed: () {
-                    GoRouter.of(context)
-                        .pushNamed(Routers.authenticationpage.name);
-                  },
-                  icon: const Icon(
-                    CupertinoIcons.back,
-                    size: 35,
-                  ),
+                  onPressed: () => GoRouter.of(context).pushNamed(Routers.authenticationpage.name),
+                  icon: const Icon(CupertinoIcons.back, size: 35),
                 ),
               ),
               Padding(
@@ -91,164 +87,165 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FadeInAnimation(
-                      delay: 1.3,
-                      child: Text(
-                        "Üdvözöljük!",
-                        style: common.titleTheme,
-                      ),
+                      duration: const Duration(milliseconds: 625),
+                      startDelay: const Duration(milliseconds: 50),
+                      direction: FadeInDirection.up,
+                      child: Text("Üdvözöljük!", style: common.titleTheme),
                     ),
                     FadeInAnimation(
-                      delay: 1.6,
-                      child: Text(
-                        "Örülünk, hogy újra láthatjuk!",
-                        style: common.titleTheme,
-                      ),
+                      duration: const Duration(milliseconds: 750),
+                      startDelay: const Duration(milliseconds: 60),
+                      direction: FadeInDirection.up,
+                      child: Text("Örülünk, hogy újra láthatjuk!", style: common.titleTheme),
                     ),
                   ],
                 ),
               ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    FadeInAnimation(
-                      delay: 1.9,
-                      child: TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.all(18),
-                          hintText: 'Adja meg e-mail címet',
-                          hintStyle: common.hinttext,
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.black),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        obscureText: false,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Az e-mail cím nem lehet üres';
-                          }
-                          if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)) {
-                            return 'Érvénytelen e-mail cím';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    FadeInAnimation(
-                      delay: 2.2,
-                      child: TextFormField(
-                        controller: _passwordController,
-                        obscureText: !_isPasswordVisible,
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.all(18),
-                          hintText: "Adja meg jelszavát",
-                          hintStyle: common.hinttext,
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.black),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _isPasswordVisible = !_isPasswordVisible;
-                              });
-                            },
-                            icon: Icon(
-                              _isPasswordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      FadeInAnimation(
+                        duration: const Duration(milliseconds: 875),
+                        startDelay: const Duration(milliseconds: 70),
+                        direction: FadeInDirection.up,
+                        child: TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.all(18),
+                            hintText: 'Adja meg e-mail címet',
+                            hintStyle: common.hinttext,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: Colors.black),
                             ),
                           ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'A jelszó nem lehet üres';
-                          }
-                          if (value.length < 6) {
-                            return 'A jelszónak legalább 6 karakter hosszúnak kell lennie';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    FadeInAnimation(
-                      delay: 2.5,
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: GestureDetector(
-                          onTap: () {
-                            GoRouter.of(context)
-                                .pushNamed(Routers.forgetpassword.name);
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Az e-mail cím nem lehet üres';
+                            }
+                            if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)) {
+                              return 'Érvénytelen e-mail cím';
+                            }
+                            return null;
                           },
-                          child: const Text(
-                            "Elfelejtette jelszavát?",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      FadeInAnimation(
+                        duration: const Duration(milliseconds: 1000),
+                        startDelay: const Duration(milliseconds: 80),
+                        direction: FadeInDirection.up,
+                        child: TextFormField(
+                          controller: _passwordController,
+                          obscureText: !_isPasswordVisible,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.all(18),
+                            hintText: "Adja meg jelszavát",
+                            hintStyle: common.hinttext,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
+                              icon: Icon(_isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'A jelszó nem lehet üres';
+                            }
+                            if (value.length < 6) {
+                              return 'A jelszónak legalább 6 karakter hosszúnak kell lennie';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      FadeInAnimation(
+                        duration: const Duration(milliseconds: 1125),
+                        startDelay: const Duration(milliseconds: 90),
+                        direction: FadeInDirection.up,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: GestureDetector(
+                            onTap: () => GoRouter.of(context).pushNamed(Routers.forgetpassword.name),
+                            child: const Text(
+                              "Elfelejtette jelszavát?",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    FadeInAnimation(
-                      delay: 2.8,
-                      child: CustomElevatedButton(
-                        message: "Bejelentkezés",
-                        function: _login,
-                        color: common.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 30),
-              FadeInAnimation(
-                delay: 2.2,
-                child: Column(
-                  children: [
-                    Text(
-                      "vagy jelentkezzen be ezzel",
-                      style: common.semiboldblack,
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset("assets/images/facebook_ic.svg"),
-                        SvgPicture.asset("assets/images/google_ic.svg"),
-                        Image.asset(
-                          "assets/images/Vector.png",
-                          color: Colors.grey,
+                      const SizedBox(height: 20),
+                      FadeInAnimation(
+                        duration: const Duration(milliseconds: 1250),
+                        startDelay: const Duration(milliseconds: 100),
+                        direction: FadeInDirection.up,
+                        child: CustomElevatedButton(
+                          message: "Bejelentkezés",
+                          function: _login,
+                          color: common.black,
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: SizedBox(
+                  height: 160,
+                  width: double.infinity,
+                  child: Column(
+                    children: [
+                      FadeInAnimation(
+                        duration: const Duration(milliseconds: 1375),
+                        startDelay: const Duration(milliseconds: 110),
+                        direction: FadeInDirection.up,
+                        child: Text("vagy jelentkezzen be ezzel", style: common.semiboldblack),
+                      ),
+                      const SizedBox(height: 20),
+                      FadeInAnimation(
+                        duration: const Duration(milliseconds: 1500),
+                        startDelay: const Duration(milliseconds: 120),
+                        direction: FadeInDirection.up,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SvgPicture.asset("assets/images/facebook_ic.svg"),
+                              SvgPicture.asset("assets/images/google_ic.svg"),
+                              Image.asset("assets/images/Vector.png", color: Colors.grey),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 30),
               FadeInAnimation(
-                delay: 2.8,
+                duration: const Duration(milliseconds: 1625),
+                startDelay: const Duration(milliseconds: 130),
+                direction: FadeInDirection.up,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Nincs még fiókja?",
-                      style: common.hinttext,
-                    ),
+                    Text("Nincs még fiókja?", style: common.hinttext),
                     TextButton(
-                      onPressed: () {
-                        GoRouter.of(context)
-                            .pushNamed(Routers.signuppage.name);
-                      },
-                      child: Text(
-                        "Regisztráljon most!",
-                        style: common.mediumTheme,
-                      ),
+                      onPressed: () => GoRouter.of(context).pushNamed(Routers.signuppage.name),
+                      child: Text("Regisztráljon most!", style: common.mediumTheme),
                     ),
                   ],
                 ),

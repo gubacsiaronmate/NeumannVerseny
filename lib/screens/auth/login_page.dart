@@ -1,12 +1,13 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:on_time/common/common.dart';
 import 'package:on_time/router/router.dart';
 import 'package:on_time/screens/animations/fade_animation.dart';
-import 'package:on_time/widgets/forms/custom_text_form_field.dart';
 import 'package:on_time/widgets/buttons/custom_elevated_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:on_time/appwrite/appwrite_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,15 +17,57 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool flag = true;
+  bool _isPasswordVisible = false;
   final Common common = Common();
+  final AppwriteService appwriteService = AppwriteService();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Login Failed'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _login() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await AppwriteService().loginUser(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+        // Navigate to the home page or show a success message
+        GoRouter.of(context).pushNamed(Routers.homepage.name);
+      } catch (e) {
+        _showErrorDialog('Nem sikerült bejelentkezni. Ellenőrizze az adatait.');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,18 +77,12 @@ class _LoginPageState extends State<LoginPage> {
                 startDelay: const Duration(milliseconds: 40),
                 direction: FadeInDirection.up,
                 child: IconButton(
-                  onPressed: () {
-                    GoRouter.of(context)
-                        .pushNamed(Routers.authenticationpage.name);
-                  },
-                  icon: const Icon(
-                    CupertinoIcons.back,
-                    size: 35,
-                  ),
+                  onPressed: () => GoRouter.of(context).pushNamed(Routers.authenticationpage.name),
+                  icon: const Icon(CupertinoIcons.back, size: 35),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -53,19 +90,13 @@ class _LoginPageState extends State<LoginPage> {
                       duration: const Duration(milliseconds: 625),
                       startDelay: const Duration(milliseconds: 50),
                       direction: FadeInDirection.up,
-                      child: Text(
-                        "Üdvözöljük!",
-                        style: common.titleTheme,
-                      ),
+                      child: Text("Üdvözöljük!", style: common.titleTheme),
                     ),
                     FadeInAnimation(
                       duration: const Duration(milliseconds: 750),
                       startDelay: const Duration(milliseconds: 60),
                       direction: FadeInDirection.up,
-                      child: Text(
-                        "Örülünk, hogy újra láthatjuk!",
-                        style: common.titleTheme,
-                      ),
+                      child: Text("Örülünk, hogy újra láthatjuk!", style: common.titleTheme),
                     ),
                   ],
                 ),
@@ -73,44 +104,68 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Form(
+                  key: _formKey,
                   child: Column(
                     children: [
-                      const FadeInAnimation(
-                        duration: Duration(milliseconds: 875),
-                        startDelay: Duration(milliseconds: 70),
+                      FadeInAnimation(
+                        duration: const Duration(milliseconds: 875),
+                        startDelay: const Duration(milliseconds: 70),
                         direction: FadeInDirection.up,
-                        child: CustomTextFormField(
-                          hinttext: 'Adja meg e-mail címet',
-                          obsecuretext: false,
+                        child: TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.all(18),
+                            hintText: 'Adja meg e-mail címet',
+                            hintStyle: common.hinttext,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Az e-mail cím nem lehet üres';
+                            }
+                            if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)) {
+                              return 'Érvénytelen e-mail cím';
+                            }
+                            return null;
+                          },
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                       FadeInAnimation(
                         duration: const Duration(milliseconds: 1000),
                         startDelay: const Duration(milliseconds: 80),
                         direction: FadeInDirection.up,
                         child: TextFormField(
-                          obscureText: flag ? true : false,
+                          controller: _passwordController,
+                          obscureText: !_isPasswordVisible,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(18),
                             hintText: "Adja meg jelszavát",
                             hintStyle: common.hinttext,
                             border: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.black),
                               borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: Colors.black),
                             ),
                             suffixIcon: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.remove_red_eye_outlined),
+                              onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
+                              icon: Icon(_isPasswordVisible ? Icons.visibility : Icons.visibility_off),
                             ),
                           ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'A jelszó nem lehet üres';
+                            }
+                            if (value.length < 6) {
+                              return 'A jelszónak legalább 6 karakter hosszúnak kell lennie';
+                            }
+                            return null;
+                          },
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                       FadeInAnimation(
                         duration: const Duration(milliseconds: 1125),
                         startDelay: const Duration(milliseconds: 90),
@@ -118,34 +173,25 @@ class _LoginPageState extends State<LoginPage> {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: GestureDetector(
-                            onTap: () {
-                              GoRouter.of(context)
-                                  .pushNamed(Routers.forgetpassword.name);
-                            },
+                            onTap: () => GoRouter.of(context).pushNamed(Routers.forgetpassword.name),
                             child: const Text(
                               "Elfelejtette jelszavát?",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700,
-                                fontFamily: "Urbanist-SemiBold",
                               ),
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 20),
                       FadeInAnimation(
                         duration: const Duration(milliseconds: 1250),
                         startDelay: const Duration(milliseconds: 100),
                         direction: FadeInDirection.up,
                         child: CustomElevatedButton(
                           message: "Bejelentkezés",
-                          function: () {
-                            GoRouter.of(context)
-                                .pushNamed(Routers.homepage.name);
-                          },
+                          function: _login,
                           color: common.black,
                         ),
                       ),
@@ -153,13 +199,11 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: SizedBox(
-                  height: 300,
+                  height: 160,
                   width: double.infinity,
                   child: Column(
                     children: [
@@ -167,32 +211,21 @@ class _LoginPageState extends State<LoginPage> {
                         duration: const Duration(milliseconds: 1375),
                         startDelay: const Duration(milliseconds: 110),
                         direction: FadeInDirection.up,
-                        child: Text(
-                          "vagy jelentkezzen be ezzel",
-                          style: common.semiboldblack,
-                        ),
+                        child: Text("vagy jelentkezzen be ezzel", style: common.semiboldblack),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       FadeInAnimation(
                         duration: const Duration(milliseconds: 1500),
                         startDelay: const Duration(milliseconds: 120),
                         direction: FadeInDirection.up,
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10, bottom: 10, right: 30, left: 30),
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SvgPicture.asset(
-                                  "assets/images/facebook_ic (1).svg"),
-                              SvgPicture.asset("assets/images/google_ic-1.svg"),
-                              Image.asset(
-                                "assets/images/Vector.png",
-                                color: Colors.grey,
-                              )
+                              SvgPicture.asset("assets/images/facebook_ic.svg"),
+                              SvgPicture.asset("assets/images/google_ic.svg"),
+                              Image.asset("assets/images/Vector.png", color: Colors.grey),
                             ],
                           ),
                         ),
@@ -201,33 +234,22 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 30),
               FadeInAnimation(
                 duration: const Duration(milliseconds: 1625),
                 startDelay: const Duration(milliseconds: 130),
                 direction: FadeInDirection.up,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 50),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Nincs még fiókja?",
-                        style: common.hinttext,
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          GoRouter.of(context)
-                              .pushNamed(Routers.signuppage.name);
-                        },
-                        child: Text(
-                          "Regisztráljon most!",
-                          style: common.mediumTheme,
-                        ),
-                      ),
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Nincs még fiókja?", style: common.hinttext),
+                    TextButton(
+                      onPressed: () => GoRouter.of(context).pushNamed(Routers.signuppage.name),
+                      child: Text("Regisztráljon most!", style: common.mediumTheme),
+                    ),
+                  ],
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:on_time/appwrite/appwrite_service.dart';
+import '../../router/router.dart';
 import 'package:on_time/screens/notifications/notifications_screen.dart';
 
 class CustomEndDrawer extends StatelessWidget {
@@ -6,6 +9,8 @@ class CustomEndDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appwriteService = AppwriteService();
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -118,6 +123,22 @@ class CustomEndDrawer extends StatelessWidget {
               _showLogoutConfirmationDialog(context);
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.logout_outlined),
+            title: const Text('Log Out'),
+            onTap: () async {
+              try {
+                await appwriteService.logoutUser();
+                Navigator.of(context).pop();
+                GoRouter.of(context).replace(
+                  Routers.loginpage.name,
+                );
+                print('User logged out!');
+              } catch (e) {
+                print('Error during logout: $e');
+              }
+            },
+          )
         ],
       ),
     );

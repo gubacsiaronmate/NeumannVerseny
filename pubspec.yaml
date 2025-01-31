@@ -41,6 +41,7 @@ dependencies:
   video_player: ^2.5.0
   appwrite: ^13.1.1
   audioplayers: ^6.1.0
+  provider: ^6.1.2
   intl: ^0.18.0
 
 dev_dependencies:

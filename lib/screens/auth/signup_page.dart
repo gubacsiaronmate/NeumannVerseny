@@ -1,11 +1,11 @@
 import 'package:on_time/common/common.dart';
 import 'package:on_time/screens/animations/fade_animation.dart';
-import 'package:on_time/widgets/forms/custom_text_form_field.dart';
 import 'package:on_time/widgets/buttons/custom_elevated_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:on_time/appwrite/appwrite_service.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -16,34 +16,78 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   final Common common = Common();
+  final AppwriteService appwriteService = AppwriteService();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  void _register() async {
+    if (_formKey.currentState!.validate()) {
+      final username = _usernameController.text.trim();
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
+      final confirmPassword = _confirmPasswordController.text.trim();
+
+      if (password != confirmPassword) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('A jelszavak nem egyeznek!')),
+        );
+        return;
+      }
+
+      try {
+        await appwriteService.registerUser(
+          username: username,
+          email: email,
+          password: password,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Sikeres regisztráció!')),
+        );
+        GoRouter.of(context).go('/login');
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Hiba történt: $e')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color.fromRGBO(232, 236, 244, 1),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               FadeInAnimation(
                 duration: const Duration(milliseconds: 500),
                 startDelay: const Duration(milliseconds: 40),
                 direction: FadeInDirection.up,
                 child: IconButton(
-                  onPressed: () {
-                    GoRouter.of(context).pop();
-                  },
-                  icon: const Icon(
-                    CupertinoIcons.back,
-                    size: 35,
-                  ),
+                  onPressed: () => GoRouter.of(context).pop(),
+                  icon: const Icon(CupertinoIcons.back, size: 35),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -51,19 +95,13 @@ class _SignupPageState extends State<SignupPage> {
                       duration: const Duration(milliseconds: 625),
                       startDelay: const Duration(milliseconds: 50),
                       direction: FadeInDirection.up,
-                      child: Text(
-                        "Üdv!",
-                        style: common.titleTheme,
-                      ),
+                      child: Text("Üdv!", style: common.titleTheme),
                     ),
                     FadeInAnimation(
                       duration: const Duration(milliseconds: 750),
                       startDelay: const Duration(milliseconds: 60),
                       direction: FadeInDirection.up,
-                      child: Text(
-                        "A folytatáshoz regisztráljon!",
-                        style: common.titleTheme,
-                      ),
+                      child: Text("A folytatáshoz regisztráljon!", style: common.titleTheme),
                     ),
                   ],
                 ),
@@ -71,63 +109,131 @@ class _SignupPageState extends State<SignupPage> {
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Form(
+                  key: _formKey,
                   child: Column(
                     children: [
-                      const FadeInAnimation(
-                        duration: Duration(milliseconds: 875),
-                        startDelay: Duration(milliseconds: 70),
+                      FadeInAnimation(
+                        duration: const Duration(milliseconds: 875),
+                        startDelay: const Duration(milliseconds: 70),
                         direction: FadeInDirection.up,
-                        child: CustomTextFormField(
-                          hinttext: 'Felhasználónév',
-                          obsecuretext: false,
+                        child: TextFormField(
+                          controller: _usernameController,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.all(18),
+                            hintText: 'Felhasználónév',
+                            hintStyle: common.hinttext,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Adjon meg egy felhasználónevet!';
+                            }
+                            return null;
+                          },
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const FadeInAnimation(
-                        duration: Duration(milliseconds: 1000),
-                        startDelay: Duration(milliseconds: 80),
+                      const SizedBox(height: 10),
+                      FadeInAnimation(
+                        duration: const Duration(milliseconds: 1000),
+                        startDelay: const Duration(milliseconds: 80),
                         direction: FadeInDirection.up,
-                        child: CustomTextFormField(
-                          hinttext: 'E-mail',
-                          obsecuretext: false,
+                        child: TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.all(18),
+                            hintText: 'E-mail',
+                            hintStyle: common.hinttext,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Adjon meg egy e-mail címet!';
+                            }
+                            if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)) {
+                              return 'Érvénytelen e-mail cím!';
+                            }
+                            return null;
+                          },
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const FadeInAnimation(
-                        duration: Duration(milliseconds: 1125),
-                        startDelay: Duration(milliseconds: 90),
+                      const SizedBox(height: 10),
+                      FadeInAnimation(
+                        duration: const Duration(milliseconds: 1125),
+                        startDelay: const Duration(milliseconds: 90),
                         direction: FadeInDirection.up,
-                        child: CustomTextFormField(
-                          hinttext: 'Jelszó',
-                          obsecuretext: true,
+                        child: TextFormField(
+                          controller: _passwordController,
+                          obscureText: !_isPasswordVisible,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.all(18),
+                            hintText: 'Jelszó',
+                            hintStyle: common.hinttext,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
+                              icon: Icon(_isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Adjon meg egy jelszót!';
+                            }
+                            if (value.length < 6) {
+                              return 'A jelszónak legalább 6 karakter hosszúnak kell lennie!';
+                            }
+                            return null;
+                          },
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const FadeInAnimation(
-                        duration: Duration(milliseconds: 1250),
-                        startDelay: Duration(milliseconds: 100),
+                      const SizedBox(height: 10),
+                      FadeInAnimation(
+                        duration: const Duration(milliseconds: 1250),
+                        startDelay: const Duration(milliseconds: 100),
                         direction: FadeInDirection.up,
-                        child: CustomTextFormField(
-                          hinttext: 'Jelszó megerősítése',
-                          obsecuretext: false,
+                        child: TextFormField(
+                          controller: _confirmPasswordController,
+                          obscureText: !_isConfirmPasswordVisible,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.all(18),
+                            hintText: 'Jelszó megerősítése',
+                            hintStyle: common.hinttext,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () => setState(() => _isConfirmPasswordVisible = !_isConfirmPasswordVisible),
+                              icon: Icon(_isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Erősítse meg a jelszavát!';
+                            }
+                            if (value != _passwordController.text) {
+                              return 'A jelszavak nem egyeznek!';
+                            }
+                            return null;
+                          },
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       FadeInAnimation(
                         duration: const Duration(milliseconds: 1375),
                         startDelay: const Duration(milliseconds: 110),
                         direction: FadeInDirection.up,
                         child: CustomElevatedButton(
                           message: "Regisztrálás",
-                          function: () {},
+                          function: _register,
                           color: common.black,
                         ),
                       ),
@@ -135,9 +241,7 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: SizedBox(
@@ -149,32 +253,20 @@ class _SignupPageState extends State<SignupPage> {
                         duration: const Duration(milliseconds: 1500),
                         startDelay: const Duration(milliseconds: 120),
                         direction: FadeInDirection.up,
-                        child: Text(
-                          "vagy regisztráljon ezzel",
-                          style: common.semiboldblack,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
+                        child: Text("vagy regisztráljon ezzel", style: common.semiboldblack),
                       ),
                       FadeInAnimation(
                         duration: const Duration(milliseconds: 1625),
                         startDelay: const Duration(milliseconds: 130),
                         direction: FadeInDirection.up,
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10, bottom: 10, right: 30, left: 30),
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                           child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SvgPicture.asset(
-                                  "assets/images/facebook_ic (1).svg"),
-                              SvgPicture.asset("assets/images/google_ic-1.svg"),
-                              Image.asset(
-                                "assets/images/Vector.png",
-                                color: Colors.grey,
-                              )
+                              SvgPicture.asset("assets/images/facebook_ic.svg"),
+                              SvgPicture.asset("assets/images/google_ic.svg"),
+                              Image.asset("assets/images/Vector.png", color: Colors.grey),
                             ],
                           ),
                         ),

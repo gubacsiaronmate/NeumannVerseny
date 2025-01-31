@@ -4,10 +4,6 @@ import 'package:appwrite/appwrite.dart';
 
 void main() {
   runApp(const MyApp());
-
-  // flutter api
-  Client client = Client();
-  client.setProject('678aa790002d7c50d1a8');
 }
 
 class MyApp extends StatelessWidget {

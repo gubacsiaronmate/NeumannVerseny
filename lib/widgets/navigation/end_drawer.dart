@@ -78,7 +78,8 @@ class CustomEndDrawer extends StatelessWidget {
             title: const Text('Notifications'),
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const NotificationScreen()),
+              MaterialPageRoute(
+                  builder: (context) => const NotificationScreen()),
             ),
           ),
 
@@ -94,7 +95,8 @@ class CustomEndDrawer extends StatelessWidget {
               // Navigate to the Help & Support page
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const HelpSupportPage()),
+                MaterialPageRoute(
+                    builder: (context) => const HelpSupportPage()),
               );
             },
           ),
@@ -112,60 +114,52 @@ class CustomEndDrawer extends StatelessWidget {
               );
             },
           ),
-
           // Logout Option
-          ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text('Logout'),
-            onTap: () {
-              Navigator.pop(context); // Close the drawer
-              // Perform logout action
-              _showLogoutConfirmationDialog(context);
-            },
-          ),
           ListTile(
             leading: const Icon(Icons.logout_outlined),
             title: const Text('Log Out'),
             onTap: () async {
-              try {
-                await appwriteService.logoutUser();
-                Navigator.of(context).pop();
-                GoRouter.of(context).replace(
-                  Routers.loginpage.name,
-                );
-                print('User logged out!');
-              } catch (e) {
-                print('Error during logout: $e');
+              // Show confirmation dialog before logging out
+              final shouldLogout = await _showLogoutConfirmationDialog(context);
+
+              if (shouldLogout == true) {
+                try {
+                  await appwriteService.logoutUser();
+                  Navigator.of(context)
+                      .pop(); // Close the drawer or any other overlay
+                  GoRouter.of(context).replace(Routers.loginpage.name);
+                  print('User logged out!');
+                } catch (e) {
+                  print('Error during logout: $e');
+                  // Optionally, show an error message to the user
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Failed to log out: $e')),
+                  );
+                }
               }
             },
-          )
+          ),
         ],
       ),
     );
   }
 
   // Logout Confirmation Dialog
-  void _showLogoutConfirmationDialog(BuildContext context) {
-    showDialog(
+  Future<bool?> _showLogoutConfirmationDialog(BuildContext context) async {
+    return await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Logout'),
-          content: const Text('Are you sure you want to logout?'),
+          title: const Text('Log Out'),
+          content: const Text('Are you sure you want to log out?'),
           actions: <Widget>[
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
+              onPressed: () => Navigator.of(context).pop(false),
               child: const Text('Cancel'),
             ),
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-                // Perform logout logic here
-                _performLogout(context);
-              },
-              child: const Text('Logout'),
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Log Out'),
             ),
           ],
         );
@@ -183,7 +177,6 @@ class CustomEndDrawer extends StatelessWidget {
   }
 }
 
-// Placeholder pages for navigation
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 

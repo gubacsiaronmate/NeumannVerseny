@@ -44,6 +44,10 @@ class AppwriteService {
     try {
       await _account.createEmailPasswordSession(email: email, password: password);
       print('Login successful!');
+
+      // Check if the session is valid
+      final session = await _account.getSession(sessionId: 'current');
+      print('Session ID: ${session.$id}');
     } catch (e) {
       print('Login Error: $e');
       rethrow;
@@ -53,10 +57,12 @@ class AppwriteService {
   /// Logout user
   Future<void> logoutUser() async {
     try {
-      await _account.deleteSession(sessionId:'current');
+      // Get the current session
+      final session = await _account.getSession(sessionId: 'current');
+      await _account.deleteSession(sessionId: session.$id);
       print('Logout successful!');
     } catch (e) {
-      print('Logout Errorecs: $e');
+      print('Logout Error: $e');
       rethrow;
     }
   }

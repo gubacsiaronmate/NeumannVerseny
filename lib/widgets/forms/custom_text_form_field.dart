@@ -33,7 +33,7 @@ class CustomTextFormFieldState extends State<CustomTextFormField> {
           borderRadius: BorderRadius.circular(12),
         ),
         hintText: widget.hinttext,
-        hintStyle: Common().hinttext,
+        hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
       ),
     );
   }

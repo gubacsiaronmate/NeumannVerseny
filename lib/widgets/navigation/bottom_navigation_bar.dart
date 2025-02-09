@@ -75,7 +75,6 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
       onTap: (index) {
         widget.onTap(index);
         if (index == 2) {
-          // Trigger the animation when the workout icon is clicked
           _startWorkoutAnimation(context);
         }
       },
@@ -101,6 +100,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
       unselectedItemColor: Colors.grey,
       showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
+      backgroundColor: Theme.of(context).colorScheme.surface,
     );
   }
 }

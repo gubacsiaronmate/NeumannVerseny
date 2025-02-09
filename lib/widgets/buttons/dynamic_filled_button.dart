@@ -46,7 +46,7 @@ class _DynamicFilledButtonState extends State<DynamicFilledButton> {
           borderRadius: BorderRadius.circular(10),
           child: CupertinoButton(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            color: widget.color ?? Common().black,
+            color: widget.color ?? Theme.of(context).colorScheme.onBackground,
             onPressed: isLoading ? null : func,
             child: isLoading
                 ? const CupertinoActivityIndicator()
@@ -61,7 +61,7 @@ class _DynamicFilledButtonState extends State<DynamicFilledButton> {
         height: 48,
         child: FilledButton(
           style: FilledButton.styleFrom(
-            backgroundColor: widget.color ?? Common().maincolor,
+            backgroundColor: widget.color ?? Theme.of(context).colorScheme.primary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),

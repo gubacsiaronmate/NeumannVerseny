@@ -78,7 +78,7 @@ class _TasksPageState extends State<TasksPage> {
             children: [
               Text(
                 'My Tasks',
-                style: common.titleTheme.copyWith(color: textColor),
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(color: textColor),
               ),
               const SizedBox(height: 20),
               // Task Input Row
@@ -96,7 +96,7 @@ class _TasksPageState extends State<TasksPage> {
                     message: 'Add',
                     icon: Icons.add,
                     function: _addTask,
-                    color: common.maincolor,
+                    color: Theme.of(context).colorScheme.primary,
                     style: ButtonStyle(
                       shape: WidgetStateProperty.all(
                         RoundedRectangleBorder(
@@ -115,7 +115,7 @@ class _TasksPageState extends State<TasksPage> {
                     ? Center(
                   child: Text(
                     'No tasks yet!\nStart by adding one.',
-                    style: common.mediumThemeblack,
+                    style: Theme.of(context).textTheme.bodySmall,
                     textAlign: TextAlign.center,
                   ),
                 )
@@ -136,11 +136,11 @@ class _TasksPageState extends State<TasksPage> {
                           leading: Checkbox(
                             value: task['isCompleted'],
                             onChanged: (value) => _toggleCompletion(task['id']),
-                            activeColor: common.maincolor,
+                            activeColor: Theme.of(context).colorScheme.primary,
                           ),
                           title: Text(
                             task['title'],
-                            style: common.semiboldblack.copyWith(
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
                               decoration: task['isCompleted']
                                   ? TextDecoration.lineThrough
                                   : TextDecoration.none,
@@ -148,7 +148,7 @@ class _TasksPageState extends State<TasksPage> {
                           ),
                           trailing: Icon(
                             Icons.delete_outline,
-                            color: common.maincolor,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ),

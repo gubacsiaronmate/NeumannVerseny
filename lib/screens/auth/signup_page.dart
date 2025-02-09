@@ -95,13 +95,13 @@ class _SignupPageState extends State<SignupPage> {
                       duration: const Duration(milliseconds: 625),
                       startDelay: const Duration(milliseconds: 50),
                       direction: FadeInDirection.up,
-                      child: Text("Üdv!", style: common.titleTheme),
+                      child: Text("Üdv!", style: Theme.of(context).textTheme.displayLarge),
                     ),
                     FadeInAnimation(
                       duration: const Duration(milliseconds: 750),
                       startDelay: const Duration(milliseconds: 60),
                       direction: FadeInDirection.up,
-                      child: Text("A folytatáshoz regisztráljon!", style: common.titleTheme),
+                      child: Text("A folytatáshoz regisztráljon!", style: Theme.of(context).textTheme.displayLarge),
                     ),
                   ],
                 ),
@@ -121,7 +121,7 @@ class _SignupPageState extends State<SignupPage> {
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(18),
                             hintText: 'Felhasználónév',
-                            hintStyle: common.hinttext,
+                            hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: const BorderSide(color: Colors.black),
@@ -145,7 +145,7 @@ class _SignupPageState extends State<SignupPage> {
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(18),
                             hintText: 'E-mail',
-                            hintStyle: common.hinttext,
+                            hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: const BorderSide(color: Colors.black),
@@ -173,7 +173,7 @@ class _SignupPageState extends State<SignupPage> {
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(18),
                             hintText: 'Jelszó',
-                            hintStyle: common.hinttext,
+                            hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: const BorderSide(color: Colors.black),
@@ -205,7 +205,7 @@ class _SignupPageState extends State<SignupPage> {
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(18),
                             hintText: 'Jelszó megerősítése',
-                            hintStyle: common.hinttext,
+                            hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: const BorderSide(color: Colors.black),
@@ -234,7 +234,7 @@ class _SignupPageState extends State<SignupPage> {
                         child: CustomElevatedButton(
                           message: "Regisztrálás",
                           function: _register,
-                          color: common.black,
+                          color: Theme.of(context).colorScheme.onBackground,
                         ),
                       ),
                     ],
@@ -253,7 +253,7 @@ class _SignupPageState extends State<SignupPage> {
                         duration: const Duration(milliseconds: 1500),
                         startDelay: const Duration(milliseconds: 120),
                         direction: FadeInDirection.up,
-                        child: Text("vagy regisztráljon ezzel", style: common.semiboldblack),
+                        child: Text("vagy regisztráljon ezzel", style: Theme.of(context).textTheme.titleMedium),
                       ),
                       FadeInAnimation(
                         duration: const Duration(milliseconds: 1625),

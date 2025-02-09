@@ -55,7 +55,7 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
                       function: () {
                         GoRouter.of(context).pushNamed(Routers.loginpage.name);
                       },
-                      color: common.black,
+                      color: Theme.of(context).colorScheme.background,
                     ),
                   ),
                   const SizedBox(
@@ -72,7 +72,7 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
                       },
                       style: ButtonStyle(
                         side: MaterialStatePropertyAll(
-                          BorderSide(color: common.black),
+                          BorderSide(color: Theme.of(context).colorScheme.onBackground),
                         ),
                         shape: MaterialStatePropertyAll(
                           RoundedRectangleBorder(
@@ -86,12 +86,12 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
                           EdgeInsets.symmetric(vertical: 20),
                         ),
                         backgroundColor: MaterialStatePropertyAll(
-                          common.white,
+                          Theme.of(context).colorScheme.background,
                         ),
                       ),
                       child: Text(
                         "Regisztráció",
-                        style: common.semiboldblack.copyWith(color: common.black),
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onBackground),
                       ),
                     ),
                   ),

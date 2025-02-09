@@ -51,7 +51,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                       direction: FadeInDirection.up,
                       child: Text(
                         "Elfelejtette jelszavát?",
-                        style: common.titleTheme,
+                        style: Theme.of(context).textTheme.displayLarge,
                       ),
                     ),
                     FadeInAnimation(
@@ -60,7 +60,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                       direction: FadeInDirection.up,
                       child: Text(
                         "Kérjük, adja meg a fiókjához tartozó e-mail címet.",
-                        style: common.mediumThemeblack,
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     )
                   ],
@@ -93,7 +93,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                             GoRouter.of(context)
                                 .pushNamed(Routers.otpverification.name);
                           },
-                          color: common.black,
+                          color: Theme.of(context).colorScheme.onBackground,
                         ),
                       ),
                     ],
@@ -112,7 +112,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                     children: [
                       Text(
                         "Don’t have an account?",
-                        style: common.hinttext,
+                        style: Theme.of(context).inputDecorationTheme.hintStyle,
                       ),
                       TextButton(
                         onPressed: () {
@@ -121,7 +121,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                         },
                         child: Text(
                           "Register Now",
-                          style: common.mediumTheme,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
                     ],

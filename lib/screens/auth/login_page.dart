@@ -89,13 +89,13 @@ class _LoginPageState extends State<LoginPage> {
                       duration: const Duration(milliseconds: 625),
                       startDelay: const Duration(milliseconds: 50),
                       direction: FadeInDirection.up,
-                      child: Text("Üdvözöljük!", style: common.titleTheme),
+                      child: Text("Üdvözöljük!", style: Theme.of(context).textTheme.displayLarge),
                     ),
                     FadeInAnimation(
                       duration: const Duration(milliseconds: 750),
                       startDelay: const Duration(milliseconds: 60),
                       direction: FadeInDirection.up,
-                      child: Text("Örülünk, hogy újra láthatjuk!", style: common.titleTheme),
+                      child: Text("Örülünk, hogy újra láthatjuk!", style: Theme.of(context).textTheme.displayLarge),
                     ),
                   ],
                 ),
@@ -115,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(18),
                             hintText: 'Adja meg e-mail címet',
-                            hintStyle: common.hinttext,
+                            hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: const BorderSide(color: Colors.black),
@@ -143,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(18),
                             hintText: "Adja meg jelszavát",
-                            hintStyle: common.hinttext,
+                            hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: const BorderSide(color: Colors.black),
@@ -191,7 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: CustomElevatedButton(
                           message: "Bejelentkezés",
                           function: _login,
-                          color: common.black,
+                          color: Theme.of(context).colorScheme.background,
                         ),
                       ),
                     ],
@@ -210,7 +210,7 @@ class _LoginPageState extends State<LoginPage> {
                         duration: const Duration(milliseconds: 1375),
                         startDelay: const Duration(milliseconds: 110),
                         direction: FadeInDirection.up,
-                        child: Text("vagy jelentkezzen be ezzel", style: common.semiboldblack),
+                        child: Text("vagy jelentkezzen be ezzel", style: Theme.of(context).textTheme.titleMedium),
                       ),
                       const SizedBox(height: 20),
                       FadeInAnimation(
@@ -241,10 +241,10 @@ class _LoginPageState extends State<LoginPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Nincs még fiókja?", style: common.hinttext),
+                    Text("Nincs még fiókja?", style: Theme.of(context).inputDecorationTheme.hintStyle),
                     TextButton(
                       onPressed: () => GoRouter.of(context).pushNamed(Routers.signuppage.name),
-                      child: Text("Regisztráljon most!", style: common.mediumTheme),
+                      child: Text("Regisztráljon most!", style: Theme.of(context).textTheme.bodyMedium),
                     ),
                   ],
                 ),

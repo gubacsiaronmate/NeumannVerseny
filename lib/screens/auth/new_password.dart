@@ -51,7 +51,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                       direction: FadeInDirection.up,
                       child: Text(
                         "Új jelszó létrehozása",
-                        style: common.titleTheme,
+                        style: Theme.of(context).textTheme.displayLarge,
                       ),
                     ),
                     FadeInAnimation(
@@ -60,7 +60,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                       direction: FadeInDirection.up,
                       child: Text(
                         "Az új jelszónak eltérőnek kell lennie az előző jelszótól.",
-                        style: common.mediumThemeblack,
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     )
                   ],
@@ -105,7 +105,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                             GoRouter.of(context)
                                 .pushNamed(Routers.passwordchanges.name);
                           },
-                          color: common.black,
+                          color: Theme.of(context).colorScheme.onBackground,
                         ),
                       ),
                     ],

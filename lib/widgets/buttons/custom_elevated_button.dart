@@ -15,7 +15,7 @@ class CustomElevatedButton extends StatefulWidget {
     required this.message,
     this.icon,
     required this.function,
-    this.color = Colors.white,
+    this.color,
     this.style,
   }) : super(key: key);
 
@@ -28,6 +28,10 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final backgroundColor = widget.color ?? Theme.of(context).colorScheme.primary;
+    final textColor = isDarkMode ? Colors.white : Colors.black;
+
     return ElevatedButton(
       onPressed: () async {
         setState(() {
@@ -41,7 +45,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
         });
       },
       style: widget.style ?? ButtonStyle(
-        side: const MaterialStatePropertyAll(BorderSide(color: Colors.grey)),
+        side: MaterialStatePropertyAll(BorderSide(color: Theme.of(context).colorScheme.onBackground)),
         shape: MaterialStatePropertyAll(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
@@ -49,7 +53,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
         padding: const MaterialStatePropertyAll(
           EdgeInsets.symmetric(vertical: 20),
         ),
-        backgroundColor: MaterialStatePropertyAll(widget.color),
+        backgroundColor: MaterialStatePropertyAll(backgroundColor),
       ),
       child: loading
           ? const CupertinoActivityIndicator()
@@ -57,13 +61,13 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (widget.icon != null) ...[
-            Icon(widget.icon, color: Colors.white),
+            Icon(widget.icon, color: textColor),
             const SizedBox(width: 5),
           ],
           FittedBox(
             child: Text(
               widget.message,
-              style: Common().semiboldwhite,
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(color: textColor),
             ),
           ),
         ],

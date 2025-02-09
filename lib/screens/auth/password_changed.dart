@@ -36,7 +36,7 @@ class _PasswordChangesPageState extends State<PasswordChangesPage> {
               direction: FadeInDirection.up,
               child: Text(
                 "Jelszó megváltoztatva!",
-                style: common.titleTheme,
+                style: Theme.of(context).textTheme.displayLarge,
               ),
             ),
             FadeInAnimation(
@@ -45,7 +45,7 @@ class _PasswordChangesPageState extends State<PasswordChangesPage> {
               direction: FadeInDirection.up,
               child: Text(
                 "Jelszavát sikeresen megváltoztattuk",
-                style: common.mediumThemeblack,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             ),
             const SizedBox(
@@ -60,7 +60,7 @@ class _PasswordChangesPageState extends State<PasswordChangesPage> {
                 function: () {
                   GoRouter.of(context).pushReplacement(Routers.loginpage.name);
                 },
-                color: common.black,
+                color: Theme.of(context).colorScheme.onBackground,
               ),
             ),
           ],

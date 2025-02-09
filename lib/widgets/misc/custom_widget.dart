@@ -31,7 +31,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               borderSide: const BorderSide(color: Colors.black),
               borderRadius: BorderRadius.circular(12)),
           hintText: widget.hinttext,
-          hintStyle: Common().hinttext),
+          hintStyle: Theme.of(context).inputDecorationTheme.hintStyle),
     );
   }
 }
@@ -80,10 +80,10 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
       child: loading
           ? const CupertinoActivityIndicator()
           : FittedBox(
-              child: Text(
-              widget.message,
-              style: Common().semiboldwhite,
-            )),
+          child: Text(
+            widget.message,
+            style: Theme.of(context).textTheme.labelLarge,
+          )),
     );
   }
 }
@@ -93,7 +93,6 @@ class DynamicFilledButton extends StatefulWidget {
       {super.key, required this.child, required this.onPressed, this.color});
 
   final Widget child;
-  // final VoidCallback onPressed;
   final Color? color;
   final FutureOr<void> Function() onPressed;
 
@@ -129,10 +128,10 @@ class _DynamicFilledButtonState extends State<DynamicFilledButton> {
             padding: const EdgeInsets.symmetric(
               vertical: 10,
             ),
-            color: widget.color ?? Common().black,
+            color: widget.color ?? Theme.of(context).colorScheme.onBackground,
             onPressed: isLoading ? null : func,
             child:
-                isLoading ? const CupertinoActivityIndicator() : widget.child,
+            isLoading ? const CupertinoActivityIndicator() : widget.child,
           ),
         ),
       );
@@ -143,17 +142,17 @@ class _DynamicFilledButtonState extends State<DynamicFilledButton> {
         height: 48,
         child: FilledButton(
           style: FilledButton.styleFrom(
-            backgroundColor: widget.color ?? Common().maincolor,
+            backgroundColor: widget.color ?? Theme.of(context).colorScheme.primary,
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           ),
           onPressed: isLoading ? null : func,
           child: isLoading
               ? const SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: CircularProgressIndicator(),
-                )
+            width: 30,
+            height: 30,
+            child: CircularProgressIndicator(),
+          )
               : widget.child,
         ),
       ),

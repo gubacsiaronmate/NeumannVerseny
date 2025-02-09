@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:on_time/services/appwrite_service.dart';
 import '../../router/router.dart';
-import 'package:on_time/screens/notifications/notifications_screen.dart';
+import 'package:on_time/screens/notifications_page.dart';
 
+import '../../screens/settings_page.dart';
 class CustomEndDrawer extends StatelessWidget {
   const CustomEndDrawer({super.key});
 
@@ -177,22 +178,6 @@ class CustomEndDrawer extends StatelessWidget {
   }
 }
 
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
-      body: const Center(
-        child: Text('Settings Page'),
-      ),
-    );
-  }
-}
-
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -204,22 +189,6 @@ class ProfilePage extends StatelessWidget {
       ),
       body: const Center(
         child: Text('Profile Page'),
-      ),
-    );
-  }
-}
-
-class NotificationsPage extends StatelessWidget {
-  const NotificationsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Notifications'),
-      ),
-      body: const Center(
-        child: Text('Notifications Page'),
       ),
     );
   }

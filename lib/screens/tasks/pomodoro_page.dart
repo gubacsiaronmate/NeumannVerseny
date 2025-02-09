@@ -143,7 +143,7 @@ class _PomodoroPageState extends State<PomodoroPage> with WidgetsBindingObserver
                 children: [
                   Text(
                     _isWorking ? 'Work Time' : 'Break Time',
-                    style: common.titleTheme.copyWith(color: textColor),
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                   const SizedBox(height: 20),
                   Stack(
@@ -162,7 +162,7 @@ class _PomodoroPageState extends State<PomodoroPage> with WidgetsBindingObserver
                         children: [
                           Text(
                             _formatTime(_remainingTime),
-                            style: common.titleTheme.copyWith(color: textColor),
+                            style: Theme.of(context).textTheme.displayLarge,
                           ),
                           const SizedBox(height: 10),
                           Row(
@@ -172,7 +172,7 @@ class _PomodoroPageState extends State<PomodoroPage> with WidgetsBindingObserver
                               const SizedBox(width: 5),
                               Text(
                                 _calculateEndTime(),
-                                style: common.mediumTheme.copyWith(color: textColor),
+                                style: Theme.of(context).textTheme.bodySmall,
                               ),
                             ],
                           ),
@@ -180,7 +180,7 @@ class _PomodoroPageState extends State<PomodoroPage> with WidgetsBindingObserver
                             const SizedBox(height: 10),
                             Text(
                               'Paused',
-                              style: common.mediumTheme.copyWith(color: Colors.grey),
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
                         ],
@@ -218,7 +218,7 @@ class _PomodoroPageState extends State<PomodoroPage> with WidgetsBindingObserver
                     message: _isPaused ? 'Resume' : 'Start',
                     icon: _isPaused ? Icons.play_arrow : Icons.play_arrow,
                     function: _isPaused ? _startTimer : _startTimer,
-                    color: common.black,
+                    color: Theme.of(context).colorScheme.onBackground,
                     style: _buttonStyle,
                   ),
                 ),
@@ -228,7 +228,7 @@ class _PomodoroPageState extends State<PomodoroPage> with WidgetsBindingObserver
                     message: 'Pause',
                     icon: Icons.pause,
                     function: _pauseTimer,
-                    color: common.black,
+                    color: Theme.of(context).colorScheme.onBackground,
                     style: _buttonStyle,
                   ),
                 ),
@@ -238,7 +238,7 @@ class _PomodoroPageState extends State<PomodoroPage> with WidgetsBindingObserver
                     message: 'Reset',
                     icon: Icons.refresh,
                     function: _resetTimer,
-                    color: common.black,
+                    color: Theme.of(context).colorScheme.onBackground,
                     style: _buttonStyle,
                   ),
                 ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:on_time/screens/notifications/notifications_screen.dart';
+import 'package:on_time/screens/notifications_page.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  final VoidCallback? onLogout;
+
+  const CustomAppBar({super.key, this.onLogout});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       flexibleSpace: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).appBarTheme.backgroundColor,
+          color: Theme.of(context).colorScheme.background,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),

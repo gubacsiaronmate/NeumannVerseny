@@ -91,7 +91,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       direction: FadeInDirection.up,
                       child: Text(
                         "Kétfaktoros Hitelesítés",
-                        style: common.titleTheme,
+                        style: Theme.of(context).textTheme.displayLarge,
                       ),
                     ),
                     FadeInAnimation(
@@ -100,7 +100,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       direction: FadeInDirection.up,
                       child: Text(
                         "Írja be az ellenőrző kódot, amelyet az imént küldtünk az e-mail címére.",
-                        style: common.mediumThemeblack,
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
                   ],
@@ -145,7 +145,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                             GoRouter.of(context)
                                 .pushNamed(Routers.newpassword.name);
                           },
-                          color: common.black,
+                          color: Theme.of(context).colorScheme.onBackground,
                         ),
                       ),
                     ],

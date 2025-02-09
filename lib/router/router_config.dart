@@ -11,8 +11,6 @@ import 'package:on_time/screens/auth/signup_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
-import '../appwrite/appwrite_service.dart';
-
 final AppwriteService _appwriteService = AppwriteService();
 
 final router = GoRouter(

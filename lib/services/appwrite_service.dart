@@ -77,6 +77,15 @@ class AppwriteService {
     }
   }
 
+  Future<bool> hasActiveSession() async {
+    try {
+      final session = await _account.getSession(sessionId: 'current');
+      return session.$id.isNotEmpty;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<String> getUserEmail() async => (await _account.get()).email;
 
   Future<List<Document>> getDocuments() async =>

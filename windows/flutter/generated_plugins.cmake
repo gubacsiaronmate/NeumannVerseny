@@ -4,7 +4,6 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
-  flutter_secure_storage_windows
   smart_auth
   url_launcher_windows
   window_to_front

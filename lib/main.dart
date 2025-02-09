@@ -1,9 +1,16 @@
-import 'package:on_time/router/router_config.dart';
 import 'package:flutter/material.dart';
-import 'package:appwrite/appwrite.dart';
+import 'package:provider/provider.dart';
+import 'package:on_time/providers/theme_provider.dart';
+import 'package:on_time/router/router_config.dart';
+import 'package:on_time/common/common.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,14 +18,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp.router(
-      theme: ThemeData(
-          brightness: Brightness.light,
-          useMaterial3: true,
-          primaryColor: Color(0xFF35C2C1),
-          textTheme: Typography.blackCupertino),
-      themeMode: ThemeMode.system,
-      darkTheme: ThemeData.dark(useMaterial3: true),
+      theme: Common.lightTheme,
+      darkTheme: Common.darkTheme,
+      themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,

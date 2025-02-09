@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:on_time/services/appwrite_service.dart';
 import 'add_exercise_page.dart';
 
 class ProgramDetailsPage extends StatefulWidget {
@@ -14,11 +13,20 @@ class ProgramDetailsPage extends StatefulWidget {
 
 class _ProgramDetailsPageState extends State<ProgramDetailsPage> {
   final List<Map<String, dynamic>> _exercises = [];
+  final AppwriteService appwriteService = AppwriteService();
+  String get programName => widget.programName;
 
   void _addExercise(Map<String, dynamic> exercise) {
     setState(() {
       _exercises.add(exercise);
     });
+
+    try {
+      appwriteService.addExercises(programName, _exercises);
+    } catch (e) {
+      print("Update Error: $e");
+      rethrow;
+    }
   }
 
   @override

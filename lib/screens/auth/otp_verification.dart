@@ -1,4 +1,8 @@
+import 'package:on_time/services/appwrite_service.dart';
 import 'package:on_time/common/common.dart';
+import 'package:on_time/common/email/email_service.dart';
+import 'package:on_time/common/email/otp_content.dart';
+import 'package:on_time/common/email/otp_generator.dart';
 import 'package:on_time/router/router.dart';
 import 'package:on_time/screens/animations/fade_animation.dart';
 import 'package:on_time/widgets/buttons/custom_elevated_button.dart';
@@ -16,6 +20,20 @@ class OtpVerificationPage extends StatefulWidget {
 
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
   final Common common = Common();
+  final AppwriteService appwriteService = AppwriteService();
+  final EmailService emailService = EmailService(
+      username: "deb.devs.info@gmail.com",
+      password: "" // TODO: add way to read google app password from env var or something safe
+  );
+  final OtpContent otpContent = OtpGenerator().getEmailContent();
+  String get emailContent => otpContent.email;
+  int get otpCode => otpContent.otpCode;
+
+  void send() async => emailService.sendEmail(
+      to: (await appwriteService.getUserEmail()),
+      subject: "Email Verification",
+      body: emailContent
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -98,11 +116,13 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                         startDelay: const Duration(milliseconds: 70),
                         direction: FadeInDirection.up,
                         child: Pinput(
+                          length: 6,
                           defaultPinTheme: defaultPinTheme,
                           focusedPinTheme: focusedPinTheme,
                           submittedPinTheme: submittedPinTheme,
                           validator: (s) {
-                            return s == '2222' ? null : 'A kód hibás';
+                            send();
+                            return s == otpCode.toString() ? null : 'A kód hibás';
                           },
                           pinputAutovalidateMode:
                           PinputAutovalidateMode.onSubmit,

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:on_time/common/common.dart';
+import 'package:on_time/services/appwrite_service.dart';
 import 'package:on_time/screens/workout/program_details_page.dart';
 import 'package:on_time/screens/workout/program_name_controller.dart';
-import 'package:on_time/widgets/buttons/custom_elevated_button.dart';
-import 'package:on_time/widgets/forms/custom_text_form_field.dart';
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({super.key});
@@ -13,12 +11,24 @@ class WorkoutPage extends StatefulWidget {
 }
 
 class _WorkoutPageState extends State<WorkoutPage> {
-  final List<String> _workoutPrograms = [];
+  final List<Map<String, dynamic>> _workoutPrograms = [];
+  final AppwriteService appwriteService = AppwriteService();
 
-  void _createNewProgram(String programName) {
+  void _createNewProgram(String? programName) {
+    final program = {
+      "name": programName,
+    };
+
     setState(() {
-      _workoutPrograms.add(programName);
+      _workoutPrograms.add(program);
     });
+
+    try {
+      appwriteService.addWorkout(program);
+    } catch (e) {
+      print("Update Error: $e");
+      rethrow;
+    }
   }
 
   void _navigateToCreateProgram(BuildContext context) async {
@@ -26,7 +36,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
       context: context,
       builder: (context) => CreateProgramDialog(),
     );
-    if (programName != null && programName.isNotEmpty) {
+    if (programName == null || programName.isNotEmpty) {
       _createNewProgram(programName);
     }
   }
@@ -55,14 +65,14 @@ class _WorkoutPageState extends State<WorkoutPage> {
               itemCount: _workoutPrograms.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(_workoutPrograms[index]),
+                  title: Text(_workoutPrograms[index]["name"]),
                   onTap: () {
                     // Navigate to the program details page
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => ProgramDetailsPage(
-                          programName: _workoutPrograms[index],
+                          programName: _workoutPrograms[index]["name"],
                         ),
                       ),
                     );

@@ -1,4 +1,3 @@
-import 'package:appwrite/appwrite.dart';
 import 'package:on_time/common/common.dart';
 import 'package:on_time/router/router.dart';
 import 'package:on_time/screens/animations/fade_animation.dart';
@@ -7,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:on_time/appwrite/appwrite_service.dart';
+import 'package:on_time/services/appwrite_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

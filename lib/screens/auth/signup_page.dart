@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:on_time/appwrite/appwrite_service.dart';
+import 'package:on_time/services/appwrite_service.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});

@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CreateProgramDialog extends StatelessWidget {
   final TextEditingController _programNameController = TextEditingController();
+
+  CreateProgramDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

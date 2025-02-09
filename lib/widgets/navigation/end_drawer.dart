@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:on_time/appwrite/appwrite_service.dart';
+import 'package:on_time/services/appwrite_service.dart';
 import '../../router/router.dart';
 import 'package:on_time/screens/notifications/notifications_screen.dart';
 

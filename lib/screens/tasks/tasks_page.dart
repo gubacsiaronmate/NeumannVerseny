@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:on_time/common/common.dart';
+import 'package:on_time/services/appwrite_service.dart';
 import 'package:on_time/widgets/buttons/custom_elevated_button.dart';
 import 'package:on_time/widgets/forms/custom_text_form_field.dart';
 
@@ -14,31 +15,54 @@ class _TasksPageState extends State<TasksPage> {
   final Common common = Common();
   final TextEditingController _taskController = TextEditingController();
   final List<Map<String, dynamic>> _tasks = [];
+  final AppwriteService appwriteService = AppwriteService();
 
-  void _addTask() {
-    if (_taskController.text.isNotEmpty) {
-      setState(() {
-        _tasks.add({
-          'title': _taskController.text,
-          'isCompleted': false,
-          'id': DateTime.now().millisecondsSinceEpoch.toString(),
-        });
-        _taskController.clear();
-      });
+  void _addTask() async {
+    Map<String, dynamic> task = {
+      'title': _taskController.text.isNotEmpty ? _taskController.text : null,
+      'is_completed': false,
+      'id': DateTime.now().millisecondsSinceEpoch.toString(),
+    };
+    setState(() {
+      _tasks.add(task);
+      _taskController.clear();
+    });
+
+    try {
+      appwriteService.addTask(task);
+    } catch (e) {
+      print("Update Error: $e");
+      rethrow;
     }
   }
 
-  void _deleteTask(String id) {
+  void _deleteTask(String id) async {
     setState(() {
       _tasks.removeWhere((task) => task['id'] == id);
     });
+
+    try {
+      appwriteService.deleteTask(id);
+    } catch (e) {
+      print("Update Error: $e");
+      rethrow;
+    }
   }
 
-  void _toggleCompletion(String id) {
+  void _toggleCompletion(String id) async {
+    final task = _tasks.firstWhere((t) => t['id'] == id);
+
     setState(() {
-      final task = _tasks.firstWhere((t) => t['id'] == id);
-      task['isCompleted'] = !task['isCompleted'];
+      final i = _tasks.indexOf(task);
+      _tasks[i]["is_completed"] = !_tasks[i]["is_completed"];
     });
+
+    try {
+      appwriteService.updateTask(task);
+    } catch (e) {
+      print("Update Error: $e");
+      rethrow;
+    }
   }
 
   @override
@@ -74,12 +98,12 @@ class _TasksPageState extends State<TasksPage> {
                     function: _addTask,
                     color: common.maincolor,
                     style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
+                      shape: WidgetStateProperty.all(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      fixedSize: MaterialStateProperty.all(const Size(100, 50)),
+                      fixedSize: WidgetStateProperty.all(const Size(100, 50)),
                     ),
                   ),
                 ],

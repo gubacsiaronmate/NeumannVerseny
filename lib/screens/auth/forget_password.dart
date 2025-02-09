@@ -71,11 +71,11 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                 child: Form(
                   child: Column(
                     children: [
-                      FadeInAnimation(
-                        duration: const Duration(milliseconds: 475), // 250 * 1.9
-                        startDelay: const Duration(milliseconds: 38), // 20 * 1.9
+                      const FadeInAnimation(
+                        duration: Duration(milliseconds: 475), // 250 * 1.9
+                        startDelay: Duration(milliseconds: 38), // 20 * 1.9
                         direction: FadeInDirection.up,
-                        child: const CustomTextFormField(
+                        child: CustomTextFormField(
                           hinttext: 'Adja meg e-mail címet',
                           obsecuretext: false,
                         ),

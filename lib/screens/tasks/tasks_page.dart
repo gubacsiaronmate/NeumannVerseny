@@ -18,11 +18,23 @@ class _TasksPageState extends State<TasksPage> {
   final AppwriteService appwriteService = AppwriteService();
 
   void _addTask() async {
+    if (_taskController.text.isEmpty) {
+      // Show an error message if the task title is empty
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Task title cannot be empty!')),
+      );
+      return;
+    }
+
+    // Ensure the title is always a non-null String
+    String taskTitle = _taskController.text;
+
     Map<String, dynamic> task = {
-      'title': _taskController.text.isNotEmpty ? _taskController.text : null,
+      'title': taskTitle, // This is now guaranteed to be a non-null String
       'is_completed': false,
       'id': DateTime.now().millisecondsSinceEpoch.toString(),
     };
+
     setState(() {
       _tasks.add(task);
       _taskController.clear();
@@ -134,14 +146,14 @@ class _TasksPageState extends State<TasksPage> {
                         ),
                         child: ListTile(
                           leading: Checkbox(
-                            value: task['isCompleted'],
+                            value: task['is_completed'] ?? false,
                             onChanged: (value) => _toggleCompletion(task['id']),
                             activeColor: Theme.of(context).colorScheme.primary,
                           ),
                           title: Text(
-                            task['title'],
+                            task['title'], // This is now guaranteed to be a non-null String
                             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              decoration: task['isCompleted']
+                              decoration: task['is_completed']
                                   ? TextDecoration.lineThrough
                                   : TextDecoration.none,
                             ),

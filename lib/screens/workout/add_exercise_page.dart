@@ -45,16 +45,19 @@ class _AddExercisePageState extends State<AddExercisePage> {
               controller: _nameController,
               decoration: const InputDecoration(hintText: 'Exercise Name'),
             ),
+            const SizedBox(height: 15),
             TextField(
               controller: _setsController,
               decoration: const InputDecoration(hintText: 'Sets'),
               keyboardType: TextInputType.number,
             ),
+            const SizedBox(height: 15),
             TextField(
               controller: _repsController,
               decoration: const InputDecoration(hintText: 'Reps'),
               keyboardType: TextInputType.number,
             ),
+            const SizedBox(height: 15),
             TextField(
               controller: _weightController,
               decoration: const InputDecoration(hintText: 'Weight (kg)'),

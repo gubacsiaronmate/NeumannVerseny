@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:on_time/common/common.dart';
 import 'package:on_time/router/router.dart';
@@ -28,10 +29,9 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: const Center(
-                child: Image(
-                  image: AssetImage('assets/images/logo-placeholder-image.png'),
-                ),
+              child: Center(
+                child:
+                  SvgPicture.asset('assets/images/logo.svg'),
               ),
             ),
           ),

@@ -23,6 +23,10 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  _LoginPageState() {
+    appwriteService.deleteSessionId();
+  }
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -49,6 +53,7 @@ class _LoginPageState extends State<LoginPage> {
   void _login() async {
     if (_formKey.currentState!.validate()) {
       try {
+        appwriteService.deleteSessionId();
         await AppwriteService().loginUser(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
@@ -191,7 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: CustomElevatedButton(
                           message: "Bejelentkezés",
                           function: _login,
-                          color: Theme.of(context).colorScheme.background,
+                          color: Theme.of(context).colorScheme.surface,
                         ),
                       ),
                     ],

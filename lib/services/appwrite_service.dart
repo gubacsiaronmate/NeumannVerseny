@@ -86,6 +86,12 @@ class AppwriteService {
     }
   }
 
+  void deleteSessionId() async {
+    if((await hasActiveSession())) {
+      logoutUser();
+    }
+  }
+
   Future<String> getUserEmail() async => (await _account.get()).email;
 
   Future<List<Document>> getDocuments() async =>

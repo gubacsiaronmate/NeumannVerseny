@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:on_time/common/common.dart';
 import 'package:on_time/router/router.dart';
 import 'package:on_time/screens/animations/fade_animation.dart';
+import 'package:on_time/services/appwrite_service.dart';
 import 'package:on_time/widgets/buttons/custom_elevated_button.dart';
 
 class AuthenticationUI extends StatefulWidget {
@@ -15,6 +16,11 @@ class AuthenticationUI extends StatefulWidget {
 
 class _AuthenticationUIState extends State<AuthenticationUI> {
   final Common common = Common();
+  final AppwriteService appwriteService = AppwriteService();
+
+  _AuthenticationUIState() {
+    appwriteService.deleteSessionId();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +61,7 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
                       function: () {
                         GoRouter.of(context).pushNamed(Routers.loginpage.name);
                       },
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.surface,
                     ),
                   ),
                   const SizedBox(
@@ -71,27 +77,27 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
                         GoRouter.of(context).pushNamed(Routers.signuppage.name);
                       },
                       style: ButtonStyle(
-                        side: MaterialStatePropertyAll(
-                          BorderSide(color: Theme.of(context).colorScheme.onBackground),
+                        side: WidgetStatePropertyAll(
+                          BorderSide(color: Theme.of(context).colorScheme.onSurface),
                         ),
-                        shape: MaterialStatePropertyAll(
+                        shape: WidgetStatePropertyAll(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        fixedSize: const MaterialStatePropertyAll(
+                        fixedSize: const WidgetStatePropertyAll(
                           Size.fromWidth(370),
                         ),
-                        padding: const MaterialStatePropertyAll(
+                        padding: const WidgetStatePropertyAll(
                           EdgeInsets.symmetric(vertical: 20),
                         ),
-                        backgroundColor: MaterialStatePropertyAll(
-                          Theme.of(context).colorScheme.background,
+                        backgroundColor: WidgetStatePropertyAll(
+                          Theme.of(context).colorScheme.surface,
                         ),
                       ),
                       child: Text(
                         "Regisztráció",
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onBackground),
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onSurface),
                       ),
                     ),
                   ),

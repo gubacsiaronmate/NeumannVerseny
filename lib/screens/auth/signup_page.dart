@@ -27,6 +27,10 @@ class _SignupPageState extends State<SignupPage> {
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
 
+  _SignupPageState() {
+    appwriteService.deleteSessionId();
+  }
+
   @override
   void dispose() {
     _usernameController.dispose();
@@ -51,6 +55,7 @@ class _SignupPageState extends State<SignupPage> {
       }
 
       try {
+        appwriteService.deleteSessionId();
         await appwriteService.registerUser(
           username: username,
           email: email,
@@ -234,7 +239,7 @@ class _SignupPageState extends State<SignupPage> {
                         child: CustomElevatedButton(
                           message: "Regisztrálás",
                           function: _register,
-                          color: Theme.of(context).colorScheme.onBackground,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                     ],

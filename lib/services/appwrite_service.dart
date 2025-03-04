@@ -10,9 +10,7 @@ class AppwriteService {
   final CollectionIds collectionIds = CollectionIds(
     tasks: "67a7a3d0003093d673e0",
     workouts: "67a7a0ee00212afdc490",
-    schedules: "679e693f003c8298221b",
     exercises: "67a7fc860016fce94754",
-    scheduleEntries: "679e7020001f25854c7d"
   );
 
   AppwriteService() {
@@ -94,7 +92,7 @@ class AppwriteService {
 
   Future<String> getUserEmail() async => (await _account.get()).email;
 
-  Future<List<Document>> getDocuments() async =>
+  Future<List<Document>> getTasks() async =>
       (await _databases.listDocuments(
         databaseId: dbId,
         collectionId: collectionIds.tasks
@@ -109,20 +107,20 @@ class AppwriteService {
           data: task
       );
     } catch (e) {
-      print("Update Error: $e");
+      print("Adding Error: $e");
       rethrow;
     }
   }
 
   void updateTask(Map<String, dynamic> task) async {
     try {
-      List<Document> documents = await getDocuments();
+      List<Document> documents = await getTasks();
 
       await _databases.updateDocument(
           databaseId: dbId,
           collectionId: collectionIds.tasks,
           documentId: documents.firstWhere((t) => t.data["id"] == task["id"]).$id,
-          data: task
+          data: Map.from(task)..removeWhere((k, v) => k.startsWith("\$"))
       );
     } catch (e) {
       print("Update Error: $e");
@@ -132,7 +130,7 @@ class AppwriteService {
 
   void deleteTask(String id) async {
     try {
-      List<Document> documents = await getDocuments();
+      List<Document> documents = await getTasks();
 
       await _databases.deleteDocument(
           databaseId: dbId,
@@ -140,7 +138,7 @@ class AppwriteService {
           documentId: documents.firstWhere((t) => t.data["id"] == id).$id,
       );
     } catch (e) {
-      print("Update Error: $e");
+      print("Delete Error: $e");
       rethrow;
     }
   }
@@ -167,7 +165,7 @@ class AppwriteService {
           data: workout
       );
     } catch (e) {
-      print("Update Error: $e");
+      print("Adding Error: $e");
       rethrow;
     }
   }
@@ -197,7 +195,7 @@ class AppwriteService {
         );
       }
     } catch (e) {
-      print("Update Error: $e");
+      print("Adding Error: $e");
       rethrow;
     }
   }

@@ -14,8 +14,17 @@ class TasksPage extends StatefulWidget {
 class _TasksPageState extends State<TasksPage> {
   final Common common = Common();
   final TextEditingController _taskController = TextEditingController();
-  final List<Map<String, dynamic>> _tasks = [];
   final AppwriteService appwriteService = AppwriteService();
+  List<Map<String, dynamic>> _tasks = [];
+
+  _TasksPageState() {
+    assignTaskValue();
+  }
+
+  void assignTaskValue() async {
+    final taskList = await appwriteService.getTasks();
+    _tasks = taskList.map((task) => task.data).toList();
+  }
 
   void _addTask() async {
     if (_taskController.text.isEmpty) {
@@ -26,29 +35,28 @@ class _TasksPageState extends State<TasksPage> {
       return;
     }
 
-    // Ensure the title is always a non-null String
     String taskTitle = _taskController.text;
 
     Map<String, dynamic> task = {
-      'title': taskTitle, // This is now guaranteed to be a non-null String
+      'title': taskTitle,
       'is_completed': false,
       'id': DateTime.now().millisecondsSinceEpoch.toString(),
     };
+
+    try {
+      appwriteService.addTask(task);
+    } catch (e) {
+      print("Adding Error: $e");
+      rethrow;
+    }
 
     setState(() {
       _tasks.add(task);
       _taskController.clear();
     });
-
-    try {
-      appwriteService.addTask(task);
-    } catch (e) {
-      print("Update Error: $e");
-      rethrow;
-    }
   }
 
-  void _deleteTask(String id) async {
+  void _deleteTask(String id) {
     setState(() {
       _tasks.removeWhere((task) => task['id'] == id);
     });
@@ -61,7 +69,7 @@ class _TasksPageState extends State<TasksPage> {
     }
   }
 
-  void _toggleCompletion(String id) async {
+  void _toggleCompletion(String id) {
     final task = _tasks.firstWhere((t) => t['id'] == id);
 
     setState(() {
@@ -79,6 +87,7 @@ class _TasksPageState extends State<TasksPage> {
 
   @override
   Widget build(BuildContext context) {
+    assignTaskValue();
     final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black;
 
     return Scaffold(
@@ -108,7 +117,7 @@ class _TasksPageState extends State<TasksPage> {
                     message: 'Add',
                     icon: Icons.add,
                     function: _addTask,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.surfaceContainer,
                     style: ButtonStyle(
                       shape: WidgetStateProperty.all(
                         RoundedRectangleBorder(

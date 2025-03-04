@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../common/common.dart';
 
 class CustomElevatedButton extends StatefulWidget {
   final String message;
@@ -37,6 +36,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
         setState(() {
           loading = true;
         });
+        // ignore: unnecessary_null_comparison
         if (widget.function != null) {
           await widget.function();
         }
@@ -45,15 +45,15 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
         });
       },
       style: widget.style ?? ButtonStyle(
-        side: MaterialStatePropertyAll(BorderSide(color: Theme.of(context).colorScheme.onBackground)),
-        shape: MaterialStatePropertyAll(
+        side: WidgetStatePropertyAll(BorderSide(color: Theme.of(context).colorScheme.onSurface)),
+        shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
-        fixedSize: const MaterialStatePropertyAll(Size.fromWidth(370)),
-        padding: const MaterialStatePropertyAll(
+        fixedSize: const WidgetStatePropertyAll(Size.fromWidth(370)),
+        padding: const WidgetStatePropertyAll(
           EdgeInsets.symmetric(vertical: 20),
         ),
-        backgroundColor: MaterialStatePropertyAll(backgroundColor),
+        backgroundColor: WidgetStatePropertyAll(backgroundColor),
       ),
       child: loading
           ? const CupertinoActivityIndicator()

@@ -98,7 +98,7 @@ class AppwriteService {
         collectionId: collectionIds.tasks
       )).documents;
 
-  void addTask(Map<String, dynamic> task) async {
+  Future<void> addTask(Map<String, dynamic> task) async {
     try {
       await _databases.createDocument(
           databaseId: dbId,
@@ -112,7 +112,7 @@ class AppwriteService {
     }
   }
 
-  void updateTask(Map<String, dynamic> task) async {
+  Future<void> updateTask(Map<String, dynamic> task) async {
     try {
       List<Document> documents = await getTasks();
 
@@ -128,7 +128,7 @@ class AppwriteService {
     }
   }
 
-  void deleteTask(String id) async {
+  Future<void> deleteTask(String id) async {
     try {
       List<Document> documents = await getTasks();
 

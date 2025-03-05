@@ -17,18 +17,21 @@ class _TasksPageState extends State<TasksPage> {
   final AppwriteService appwriteService = AppwriteService();
   List<Map<String, dynamic>> _tasks = [];
 
-  _TasksPageState() {
+  @override
+  void initState() {
+    super.initState();
     assignTaskValue();
   }
 
   void assignTaskValue() async {
     final taskList = await appwriteService.getTasks();
-    _tasks = taskList.map((task) => task.data).toList();
+    setState(() {
+      _tasks = taskList.map((task) => task.data).toList();
+    });
   }
 
   void _addTask() async {
     if (_taskController.text.isEmpty) {
-      // Show an error message if the task title is empty
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Task title cannot be empty!')),
       );
@@ -44,50 +47,53 @@ class _TasksPageState extends State<TasksPage> {
     };
 
     try {
-      appwriteService.addTask(task);
+      await appwriteService.addTask(task);
+      setState(() {
+        _tasks.add(task);
+        _taskController.clear();
+      });
     } catch (e) {
       print("Adding Error: $e");
-      rethrow;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to add task: $e')),
+      );
     }
-
-    setState(() {
-      _tasks.add(task);
-      _taskController.clear();
-    });
   }
 
-  void _deleteTask(String id) {
-    setState(() {
-      _tasks.removeWhere((task) => task['id'] == id);
-    });
-
+  void _deleteTask(String id) async {
     try {
-      appwriteService.deleteTask(id);
+      await appwriteService.deleteTask(id);
+      setState(() {
+        _tasks.removeWhere((task) => task['id'] == id);
+      });
     } catch (e) {
-      print("Update Error: $e");
-      rethrow;
+      print("Delete Error: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to delete task: $e')),
+      );
     }
   }
 
-  void _toggleCompletion(String id) {
+  void _toggleCompletion(String id) async {
     final task = _tasks.firstWhere((t) => t['id'] == id);
-
-    setState(() {
-      final i = _tasks.indexOf(task);
-      _tasks[i]["is_completed"] = !_tasks[i]["is_completed"];
-    });
+    final updatedTask = {...task, 'is_completed': !task['is_completed']};
 
     try {
-      appwriteService.updateTask(task);
+      await appwriteService.updateTask(updatedTask);
+      setState(() {
+        final index = _tasks.indexWhere((t) => t['id'] == id);
+        _tasks[index] = updatedTask;
+      });
     } catch (e) {
       print("Update Error: $e");
-      rethrow;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to update task: $e')),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    assignTaskValue();
     final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black;
 
     return Scaffold(
@@ -102,7 +108,6 @@ class _TasksPageState extends State<TasksPage> {
                 style: Theme.of(context).textTheme.displayLarge?.copyWith(color: textColor),
               ),
               const SizedBox(height: 20),
-              // Task Input Row
               Row(
                 children: [
                   Expanded(
@@ -130,7 +135,6 @@ class _TasksPageState extends State<TasksPage> {
                 ],
               ),
               const SizedBox(height: 30),
-              // Task List
               Expanded(
                 child: _tasks.isEmpty
                     ? Center(
@@ -160,7 +164,7 @@ class _TasksPageState extends State<TasksPage> {
                             activeColor: Theme.of(context).colorScheme.primary,
                           ),
                           title: Text(
-                            task['title'], // This is now guaranteed to be a non-null String
+                            task['title'],
                             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                               decoration: task['is_completed']
                                   ? TextDecoration.lineThrough

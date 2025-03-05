@@ -92,19 +92,39 @@ class AppwriteService {
 
   Future<String> getUserEmail() async => (await _account.get()).email;
 
-  Future<List<Document>> getTasks() async =>
-      (await _databases.listDocuments(
+  Future<String> getCurrentUserId() async {
+    try {
+      final user = await _account.get();
+      return user.$id;
+    } catch (e) {
+      print("Error getting current user ID: $e");
+      rethrow;
+    }
+  }
+
+  Future<List<Document>> getTasks(String userId) async {
+    try {
+      final response = await _databases.listDocuments(
         databaseId: dbId,
-        collectionId: collectionIds.tasks
-      )).documents;
+        collectionId: collectionIds.tasks,
+        queries: [
+          Query.equal('userId', userId),
+        ],
+      );
+      return response.documents;
+    } catch (e) {
+      print("Error fetching tasks: $e");
+      rethrow;
+    }
+  }
 
   Future<void> addTask(Map<String, dynamic> task) async {
     try {
       await _databases.createDocument(
-          databaseId: dbId,
-          collectionId: collectionIds.tasks,
-          documentId: ID.unique(),
-          data: task
+        databaseId: dbId,
+        collectionId: collectionIds.tasks,
+        documentId: ID.unique(),
+        data: task,
       );
     } catch (e) {
       print("Adding Error: $e");
@@ -114,13 +134,14 @@ class AppwriteService {
 
   Future<void> updateTask(Map<String, dynamic> task) async {
     try {
-      List<Document> documents = await getTasks();
+      final userId = await getCurrentUserId();
+      final documents = await getTasks(userId);
 
       await _databases.updateDocument(
-          databaseId: dbId,
-          collectionId: collectionIds.tasks,
-          documentId: documents.firstWhere((t) => t.data["id"] == task["id"]).$id,
-          data: Map.from(task)..removeWhere((k, v) => k.startsWith("\$"))
+        databaseId: dbId,
+        collectionId: collectionIds.tasks,
+        documentId: documents.firstWhere((t) => t.data["id"] == task["id"]).$id,
+        data: Map.from(task)..removeWhere((k, v) => k.startsWith("\$")),
       );
     } catch (e) {
       print("Update Error: $e");
@@ -130,12 +151,13 @@ class AppwriteService {
 
   Future<void> deleteTask(String id) async {
     try {
-      List<Document> documents = await getTasks();
+      final userId = await getCurrentUserId();
+      final documents = await getTasks(userId);
 
       await _databases.deleteDocument(
-          databaseId: dbId,
-          collectionId: collectionIds.tasks,
-          documentId: documents.firstWhere((t) => t.data["id"] == id).$id,
+        databaseId: dbId,
+        collectionId: collectionIds.tasks,
+        documentId: documents.firstWhere((t) => t.data["id"] == id).$id,
       );
     } catch (e) {
       print("Delete Error: $e");
@@ -145,24 +167,24 @@ class AppwriteService {
 
   Future<List<Document>> getExercisesTable() async =>
       (await _databases.listDocuments(
-          databaseId: dbId,
-          collectionId: collectionIds.exercises
+        databaseId: dbId,
+        collectionId: collectionIds.exercises,
       )).documents;
 
   Future<List<Document>> getWorkouts() async =>
-    (await _databases.listDocuments(
+      (await _databases.listDocuments(
         databaseId: dbId,
-        collectionId: collectionIds.workouts
-    )).documents;
+        collectionId: collectionIds.workouts,
+      )).documents;
 
   void addWorkout(Map<String, dynamic> workout) async {
     workout.addAll({ "user_id": (await _account.get()).$id });
     try {
       await _databases.createDocument(
-          databaseId: dbId,
-          collectionId: collectionIds.workouts,
-          documentId: ID.unique(),
-          data: workout
+        databaseId: dbId,
+        collectionId: collectionIds.workouts,
+        documentId: ID.unique(),
+        data: workout,
       );
     } catch (e) {
       print("Adding Error: $e");
@@ -172,10 +194,10 @@ class AppwriteService {
 
   Future<Document> addExercise(Map<String, dynamic> exercise) async =>
       await _databases.createDocument(
-          databaseId: dbId,
-          collectionId: collectionIds.exercises,
-          documentId: ID.unique(),
-          data: {}
+        databaseId: dbId,
+        collectionId: collectionIds.exercises,
+        documentId: ID.unique(),
+        data: {},
       );
 
   void addExercises(String workoutName, List<Map<String, dynamic>> exercises) async {
@@ -184,14 +206,14 @@ class AppwriteService {
 
       for (Map<String, dynamic> exercise in exercises) {
         await _databases.updateDocument(
-            databaseId: dbId,
-            collectionId: collectionIds.workouts,
-            documentId: workouts.firstWhere((workout) => workout.data["name"] == workoutName).$id,
-            data: {
-              "name": workoutName,
-              "user_id": (await _account.get()).$id,
-              "exercise_id": (await addExercise(exercise)).$id
-            }
+          databaseId: dbId,
+          collectionId: collectionIds.workouts,
+          documentId: workouts.firstWhere((workout) => workout.data["name"] == workoutName).$id,
+          data: {
+            "name": workoutName,
+            "user_id": (await _account.get()).$id,
+            "exercise_id": (await addExercise(exercise)).$id,
+          },
         );
       }
     } catch (e) {

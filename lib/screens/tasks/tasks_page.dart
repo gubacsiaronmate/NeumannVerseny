@@ -24,7 +24,8 @@ class _TasksPageState extends State<TasksPage> {
   }
 
   void assignTaskValue() async {
-    final taskList = await appwriteService.getTasks();
+    final String userId = await appwriteService.getCurrentUserId();
+    final taskList = await appwriteService.getTasks(userId);
     setState(() {
       _tasks = taskList.map((task) => task.data).toList();
     });
@@ -39,11 +40,13 @@ class _TasksPageState extends State<TasksPage> {
     }
 
     String taskTitle = _taskController.text;
+    String userId = await appwriteService.getCurrentUserId();
 
     Map<String, dynamic> task = {
       'title': taskTitle,
       'is_completed': false,
       'id': DateTime.now().millisecondsSinceEpoch.toString(),
+      'userId': userId,
     };
 
     try {

@@ -27,10 +27,6 @@ class _SignupPageState extends State<SignupPage> {
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
 
-  _SignupPageState() {
-    appwriteService.deleteSessionId();
-  }
-
   @override
   void dispose() {
     _usernameController.dispose();

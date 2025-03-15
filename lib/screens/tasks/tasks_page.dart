@@ -80,6 +80,10 @@ class _TasksPageState extends State<TasksPage> {
   void _toggleCompletion(String id) async {
     final task = _tasks.firstWhere((t) => t['id'] == id);
     final updatedTask = {...task, 'is_completed': !task['is_completed']};
+    
+    if(!updatedTask.containsKey('userId')) {
+        updatedTask.addAll({"userId": await appwriteService.getCurrentUserId()});
+    }
 
     try {
       await appwriteService.updateTask(updatedTask);
@@ -133,6 +137,7 @@ class _TasksPageState extends State<TasksPage> {
                         ),
                       ),
                       fixedSize: WidgetStateProperty.all(const Size(100, 50)),
+                      backgroundColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.surfaceContainer)
                     ),
                   ),
                 ],

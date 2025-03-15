@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
           password: _passwordController.text.trim(),
         );
         // Navigate to the home page or show a success message
-        GoRouter.of(context).pushNamed(Routers.homepage.name);
+        GoRouter.of(context).goNamed(Routers.homepage.name);
       } catch (e) {
         _showErrorDialog('Nem sikerült bejelentkezni. Ellenőrizze az adatait.');
       }

@@ -11,9 +11,25 @@ import 'package:on_time/screens/auth/signup_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
-final AppwriteService _appwriteService = AppwriteService();
+// final AppwriteService _appwriteService = AppwriteService();
 
 final router = GoRouter(
+  redirect: (BuildContext context, GoRouterState state) async {
+    final appwriteService = AppwriteService();
+    final bool isLoggedIn = await appwriteService.hasActiveSession();
+
+    if (state.matchedLocation == Routers.loginpage.path && isLoggedIn) {
+      return Routers.homepage.path;
+    }
+
+    if (!isLoggedIn && state.matchedLocation != Routers.loginpage.path
+        && state.matchedLocation != Routers.authenticationpage.path) {
+      return Routers.loginpage.path;
+    }
+
+    return null;
+  },
+
   routes: [
     GoRoute(
       path: Routers.authenticationpage.path,

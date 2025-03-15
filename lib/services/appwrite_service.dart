@@ -62,6 +62,17 @@ class AppwriteService {
     }
   }
 
+  Future<String> getUsername() async {
+    String username;
+    try {
+      username = (await _account.get()).name;
+    } catch (e) {
+      print("Fetching error: $e");
+      rethrow;
+    }
+    return username;
+  }
+
   /// Logout user
   Future<void> logoutUser() async {
     try {

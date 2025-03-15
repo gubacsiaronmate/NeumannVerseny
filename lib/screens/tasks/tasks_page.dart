@@ -159,7 +159,7 @@ class _TasksPageState extends State<TasksPage> {
                     return Dismissible(
                       key: Key(task['id']),
                       background: Container(color: Colors.red),
-                      onDismissed: (direction) => _deleteTask(task['id']),
+                      onDismissed: (_) => _deleteTask(task['id']),
                       child: Card(
                         elevation: 2,
                         shape: RoundedRectangleBorder(

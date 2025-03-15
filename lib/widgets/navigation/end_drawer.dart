@@ -120,18 +120,16 @@ class CustomEndDrawer extends StatelessWidget {
             leading: const Icon(Icons.logout_outlined),
             title: const Text('Log Out'),
             onTap: () async {
-              // Show confirmation dialog before logging out
               final shouldLogout = await _showLogoutConfirmationDialog(context);
 
               if (shouldLogout == true) {
                 try {
                   await appwriteService.logoutUser();
-                  Navigator.of(context).pop(); // Close the drawer or any other overlay
+                  Navigator.of(context).pop();
                   GoRouter.of(context).replace(Routers.loginpage.name);
                   print('User logged out!');
                 } catch (e) {
                   print('Error during logout: $e');
-                  // Optionally, show an error message to the user
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Failed to log out: $e')),
                   );

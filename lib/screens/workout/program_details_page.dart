@@ -20,13 +20,6 @@ class _ProgramDetailsPageState extends State<ProgramDetailsPage> {
     setState(() {
       _exercises.add(exercise);
     });
-
-    try {
-      appwriteService.addExercises(programName, _exercises);
-    } catch (e) {
-      print("Update Error: $e");
-      rethrow;
-    }
   }
 
   @override

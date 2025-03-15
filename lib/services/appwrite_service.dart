@@ -118,9 +118,7 @@ class AppwriteService {
       final response = await _databases.listDocuments(
         databaseId: dbId,
         collectionId: collectionIds.tasks,
-        queries: [
-          Query.equal('userId', userId),
-        ],
+        queries: [Query.equal('userId', userId)]
       );
       return response.documents;
     } catch (e) {
@@ -176,20 +174,21 @@ class AppwriteService {
     }
   }
 
-  Future<List<Document>> getExercisesTable() async =>
-      (await _databases.listDocuments(
-        databaseId: dbId,
-        collectionId: collectionIds.exercises,
-      )).documents;
+  Future<List<Document>> getWorkouts(String userId) async {
+    try {
+      final response = await _databases.listDocuments(
+          databaseId: dbId,
+          collectionId: collectionIds.workouts,
+          queries: [Query.equal("userId", userId)]
+      );
+      return response.documents;
+    } catch (e) {
+      print("Fetching error: $e");
+      rethrow;
+    }
+  }
 
-  Future<List<Document>> getWorkouts() async =>
-      (await _databases.listDocuments(
-        databaseId: dbId,
-        collectionId: collectionIds.workouts,
-      )).documents;
-
-  void addWorkout(Map<String, dynamic> workout) async {
-    workout.addAll({ "user_id": (await _account.get()).$id });
+  Future<void> addWorkout(Map<String, dynamic> workout) async {
     try {
       await _databases.createDocument(
         databaseId: dbId,
@@ -203,15 +202,28 @@ class AppwriteService {
     }
   }
 
-  Future<Document> addExercise(Map<String, dynamic> exercise) async =>
+  /*Future<List<Document>> getExercisesTable() async {
+    try {
+      final response = await _databases.listDocuments(
+        databaseId: dbId,
+        collectionId: collectionIds.exercises,
+      );
+      return response.documents;
+    } catch (e) {
+      print("Fetching error: $e");
+      rethrow;
+    }
+  }*/
+
+  /*Future<Document> addExercise(Map<String, dynamic> exercise) async =>
       await _databases.createDocument(
         databaseId: dbId,
         collectionId: collectionIds.exercises,
         documentId: ID.unique(),
         data: {},
-      );
+      );*/
 
-  void addExercises(String workoutName, List<Map<String, dynamic>> exercises) async {
+  /*void addExercises(String workoutName, List<Map<String, dynamic>> exercises) async {
     try {
       final workouts = await getWorkouts();
 
@@ -231,5 +243,5 @@ class AppwriteService {
       print("Adding Error: $e");
       rethrow;
     }
-  }
+  }*/
 }

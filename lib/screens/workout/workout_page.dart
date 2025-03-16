@@ -13,30 +13,51 @@ class WorkoutPage extends StatefulWidget {
 }
 
 class _WorkoutPageState extends State<WorkoutPage> {
-  final List<Map<String, dynamic>> _workoutPrograms = [];
   final AppwriteService _appwriteService = AppwriteService();
+  List<Map<String, dynamic>> _workoutPrograms = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _assignWorkoutProgramsValue();
+  }
+
+  void _assignWorkoutProgramsValue() async {
+    final userId = await _appwriteService.getCurrentUserId();
+    final workouts = await _appwriteService.getWorkouts(userId);
+    setState(() {
+      _workoutPrograms = workouts.map((doc) => doc.data).toList();
+    });
+  }
 
   Future<void> _createNewProgram(String programName) async {
+    final userId = await _appwriteService.getCurrentUserId();
+
     final program = {
       "programName": programName,
-      "userId": _appwriteService.getCurrentUserId(),
+      "userId": userId,
       "id": DateTime.now().millisecondsSinceEpoch.toString()
     };
 
-    setState(() {
-      _workoutPrograms.add(program);
-    });
-
     try {
       await _appwriteService.addWorkout(program);
+      setState(() {
+        _workoutPrograms.add(program);
+      });
     } catch (e) {
-      print("Update Error: $e");
+      print("Adding Error: $e");
       rethrow;
     }
   }
 
-  void _deleteWorkout(String id) async {
-
+  void _deleteWorkout(String workoutId) async {
+    try {
+      await _appwriteService.deleteWorkout(workoutId);
+      _workoutPrograms.removeWhere((workout) => workout["id"] == workoutId);
+    } catch (e) {
+      print("Delete error: $e");
+      rethrow;
+    }
   }
 
   void _navigateToCreateProgram(BuildContext context) async {
@@ -44,13 +65,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
       context: context,
       builder: (context) => CreateProgramDialog(),
     );
-    print("""
-    \n\n\n
-    programName: $programName\n
-    programName != null: ${programName != null}
-    programName.isNotEmpty: ${programName != null ? programName.isNotEmpty : "programName is null"}\n
-    \n\n\n
-    """);
     if (programName != null && programName.isNotEmpty) {
       await _createNewProgram(programName);
     }
@@ -88,8 +102,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
                     padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
                     child: ListTile(
                       title: Text(_workoutPrograms[index]["programName"]),
-                      onTap: () {
-                        Navigator.push(
+                      onTap: () async {
+                        final updatedExercises = await Navigator.push<List<Map<String, dynamic>>>(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ProgramDetailsPage(
@@ -97,6 +111,20 @@ class _WorkoutPageState extends State<WorkoutPage> {
                             ),
                           ),
                         );
+
+                        if (updatedExercises != null) {
+                          for (var exercise in updatedExercises) {
+                            if (!exercise.keys.contains("id")) {
+                              exercise['id'] = DateTime.now().millisecondsSinceEpoch.toString();
+                            }
+                          }
+                          
+                          setState(() {
+                            _workoutPrograms[index].addAll({"exercises": updatedExercises.map((exercise) => exercise['id']).toList()});
+                          });
+
+                          await _appwriteService.updateWorkout(_workoutPrograms[index]);
+                        }
                       },
                       trailing: Icon(
                         Icons.delete_outline,

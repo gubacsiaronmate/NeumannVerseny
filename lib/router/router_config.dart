@@ -23,7 +23,8 @@ final router = GoRouter(
     }
 
     if (!isLoggedIn && state.matchedLocation != Routers.loginpage.path
-        && state.matchedLocation != Routers.authenticationpage.path) {
+        && state.matchedLocation != Routers.authenticationpage.path
+        && state.matchedLocation != Routers.signuppage.path) {
       return Routers.loginpage.path;
     }
 

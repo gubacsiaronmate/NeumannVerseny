@@ -235,7 +235,7 @@ class _SignupPageState extends State<SignupPage> {
                         child: CustomElevatedButton(
                           message: "Regisztrálás",
                           function: _register,
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: Theme.of(context).colorScheme.surface,
                         ),
                       ),
                     ],

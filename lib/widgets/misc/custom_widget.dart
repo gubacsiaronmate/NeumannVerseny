@@ -1,4 +1,3 @@
-import 'package:on_time/common/common.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
@@ -61,7 +60,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
           loading = true;
         });
         if (widget.function != null) {
-          await widget.function!();
+          await widget.function();
         }
 
         setState(() {
@@ -69,14 +68,14 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
         });
       },
       style: ButtonStyle(
-          side: const MaterialStatePropertyAll(BorderSide(color: Colors.grey)),
-          shape: MaterialStatePropertyAll(
+          side: const WidgetStatePropertyAll(BorderSide(color: Colors.grey)),
+          shape: WidgetStatePropertyAll(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-          fixedSize: const MaterialStatePropertyAll(Size.fromWidth(370)),
-          padding: const MaterialStatePropertyAll(
+          fixedSize: const WidgetStatePropertyAll(Size.fromWidth(370)),
+          padding: const WidgetStatePropertyAll(
             EdgeInsets.symmetric(vertical: 20),
           ),
-          backgroundColor: MaterialStatePropertyAll(widget.color)),
+          backgroundColor: WidgetStatePropertyAll(widget.color)),
       child: loading
           ? const CupertinoActivityIndicator()
           : FittedBox(
@@ -128,7 +127,7 @@ class _DynamicFilledButtonState extends State<DynamicFilledButton> {
             padding: const EdgeInsets.symmetric(
               vertical: 10,
             ),
-            color: widget.color ?? Theme.of(context).colorScheme.onBackground,
+            color: widget.color ?? Theme.of(context).colorScheme.onSurface,
             onPressed: isLoading ? null : func,
             child:
             isLoading ? const CupertinoActivityIndicator() : widget.child,

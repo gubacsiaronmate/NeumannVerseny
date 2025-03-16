@@ -14,66 +14,88 @@ class TasksPage extends StatefulWidget {
 class _TasksPageState extends State<TasksPage> {
   final Common common = Common();
   final TextEditingController _taskController = TextEditingController();
-  final List<Map<String, dynamic>> _tasks = [];
   final AppwriteService appwriteService = AppwriteService();
+  List<Map<String, dynamic>> _tasks = [];
+
+  @override
+  void initState() {
+    super.initState();
+    assignTaskValue();
+  }
+
+  void assignTaskValue() async {
+    final String userId = await appwriteService.getCurrentUserId();
+    final taskList = await appwriteService.getTasks(userId);
+    setState(() {
+      _tasks = taskList.map((task) => task.data).toList();
+    });
+  }
 
   void _addTask() async {
     if (_taskController.text.isEmpty) {
-      // Show an error message if the task title is empty
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Task title cannot be empty!')),
       );
       return;
     }
 
-    // Ensure the title is always a non-null String
     String taskTitle = _taskController.text;
+    String userId = await appwriteService.getCurrentUserId();
 
     Map<String, dynamic> task = {
-      'title': taskTitle, // This is now guaranteed to be a non-null String
+      'title': taskTitle,
       'is_completed': false,
       'id': DateTime.now().millisecondsSinceEpoch.toString(),
+      'userId': userId,
     };
 
-    setState(() {
-      _tasks.add(task);
-      _taskController.clear();
-    });
-
     try {
-      appwriteService.addTask(task);
+      await appwriteService.addTask(task);
+      setState(() {
+        _tasks.add(task);
+        _taskController.clear();
+      });
     } catch (e) {
-      print("Update Error: $e");
-      rethrow;
+      print("Adding Error: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to add task: $e')),
+      );
     }
   }
 
   void _deleteTask(String id) async {
-    setState(() {
-      _tasks.removeWhere((task) => task['id'] == id);
-    });
-
     try {
-      appwriteService.deleteTask(id);
+      await appwriteService.deleteTask(id);
+      setState(() {
+        _tasks.removeWhere((task) => task['id'] == id);
+      });
     } catch (e) {
-      print("Update Error: $e");
-      rethrow;
+      print("Delete Error: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to delete task: $e')),
+      );
     }
   }
 
   void _toggleCompletion(String id) async {
     final task = _tasks.firstWhere((t) => t['id'] == id);
-
-    setState(() {
-      final i = _tasks.indexOf(task);
-      _tasks[i]["is_completed"] = !_tasks[i]["is_completed"];
-    });
+    final updatedTask = {...task, 'is_completed': !task['is_completed']};
+    
+    if(!updatedTask.containsKey('userId')) {
+        updatedTask.addAll({"userId": await appwriteService.getCurrentUserId()});
+    }
 
     try {
-      appwriteService.updateTask(task);
+      await appwriteService.updateTask(updatedTask);
+      setState(() {
+        final index = _tasks.indexWhere((t) => t['id'] == id);
+        _tasks[index] = updatedTask;
+      });
     } catch (e) {
       print("Update Error: $e");
-      rethrow;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to update task: $e')),
+      );
     }
   }
 
@@ -93,7 +115,6 @@ class _TasksPageState extends State<TasksPage> {
                 style: Theme.of(context).textTheme.displayLarge?.copyWith(color: textColor),
               ),
               const SizedBox(height: 20),
-              // Task Input Row
               Row(
                 children: [
                   Expanded(
@@ -108,7 +129,7 @@ class _TasksPageState extends State<TasksPage> {
                     message: 'Add',
                     icon: Icons.add,
                     function: _addTask,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.surfaceContainer,
                     style: ButtonStyle(
                       shape: WidgetStateProperty.all(
                         RoundedRectangleBorder(
@@ -116,12 +137,12 @@ class _TasksPageState extends State<TasksPage> {
                         ),
                       ),
                       fixedSize: WidgetStateProperty.all(const Size(100, 50)),
+                      backgroundColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.surfaceContainer)
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 30),
-              // Task List
               Expanded(
                 child: _tasks.isEmpty
                     ? Center(
@@ -138,7 +159,7 @@ class _TasksPageState extends State<TasksPage> {
                     return Dismissible(
                       key: Key(task['id']),
                       background: Container(color: Colors.red),
-                      onDismissed: (direction) => _deleteTask(task['id']),
+                      onDismissed: (_) => _deleteTask(task['id']),
                       child: Card(
                         elevation: 2,
                         shape: RoundedRectangleBorder(
@@ -151,7 +172,7 @@ class _TasksPageState extends State<TasksPage> {
                             activeColor: Theme.of(context).colorScheme.primary,
                           ),
                           title: Text(
-                            task['title'], // This is now guaranteed to be a non-null String
+                            task['title'],
                             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                               decoration: task['is_completed']
                                   ? TextDecoration.lineThrough

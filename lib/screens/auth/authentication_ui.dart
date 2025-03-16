@@ -74,7 +74,8 @@ class _AuthenticationUIState extends State<AuthenticationUI> {
                     distance: 30.0,
                     child: ElevatedButton(
                       onPressed: () {
-                        GoRouter.of(context).pushNamed(Routers.signuppage.name);
+                        print("\n\n\nRegistration button pressed\n\n\n");
+                        GoRouter.of(context).push("/signup");
                       },
                       style: ButtonStyle(
                         side: WidgetStatePropertyAll(

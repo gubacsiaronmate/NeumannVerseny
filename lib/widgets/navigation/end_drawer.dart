@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:on_time/services/appwrite_service.dart';
 import '../../router/router.dart';
-import 'package:on_time/screens/notifications_page.dart';
+import 'package:on_time/notifications/notifications_page.dart';
 
 import '../../screens/settings_page.dart';
 class CustomEndDrawer extends StatelessWidget {
@@ -120,19 +120,16 @@ class CustomEndDrawer extends StatelessWidget {
             leading: const Icon(Icons.logout_outlined),
             title: const Text('Log Out'),
             onTap: () async {
-              // Show confirmation dialog before logging out
               final shouldLogout = await _showLogoutConfirmationDialog(context);
 
               if (shouldLogout == true) {
                 try {
                   await appwriteService.logoutUser();
-                  Navigator.of(context)
-                      .pop(); // Close the drawer or any other overlay
+                  Navigator.of(context).pop();
                   GoRouter.of(context).replace(Routers.loginpage.name);
                   print('User logged out!');
                 } catch (e) {
                   print('Error during logout: $e');
-                  // Optionally, show an error message to the user
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Failed to log out: $e')),
                   );
@@ -165,15 +162,6 @@ class CustomEndDrawer extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-
-  // Perform Logout Logic
-  void _performLogout(BuildContext context) {
-    // Add your logout logic here (e.g., clear user session, navigate to login screen, etc.)
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginPage()),
     );
   }
 }

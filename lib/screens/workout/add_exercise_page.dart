@@ -22,6 +22,7 @@ class _AddExercisePageState extends State<AddExercisePage> {
         _repsController.text.isNotEmpty &&
         _weightController.text.isNotEmpty) {
       widget.onExerciseAdded({
+        'id': DateTime.now().millisecondsSinceEpoch.toString(),
         'name': _nameController.text,
         'sets': _setsController.text,
         'reps': _repsController.text,

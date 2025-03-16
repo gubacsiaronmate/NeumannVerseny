@@ -7,9 +7,7 @@ class Common {
     colorScheme: const ColorScheme.light(
       primary: Color(0xFF2ECC71),
       secondary: Color(0xFF489797),
-      background: Color(0xFFF5F5F5),
-      surface: Color(0xFFFFFFFF),
-      onBackground: Color(0xFF141414),
+      surface: Color(0xFFF5F5F5),
       onSurface: Color(0xFF141414),
     ),
     scaffoldBackgroundColor: const Color(0xFFF5F5F5),
@@ -23,9 +21,8 @@ class Common {
     colorScheme: const ColorScheme.dark(
       primary: Color(0xFF2ECC71),
       secondary: Color(0xFF6AB7B7),
-      background: Color(0xFF141414),
-      surface: Color(0xFF2A2A2A),
-      onBackground: Color(0xFFF5F5F5),
+      surface: Color(0xFF141414),
+      surfaceContainer: Color(0xFF282828),
       onSurface: Color(0xFFF5F5F5),
     ),
     scaffoldBackgroundColor: const Color(0xFF141414),
@@ -46,7 +43,7 @@ class Common {
         fontSize: 15,
         fontFamily: "Urbanist-Bold",
         fontWeight: FontWeight.bold,
-        color: Color(0xFF489797), // Uses secondary color from theme
+        color: Color(0xFFFFFFFF),
       ),
       bodySmall: const TextStyle(
         fontSize: 16,
@@ -82,7 +79,7 @@ class Common {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: Color(0xFF2ECC71)),
+        borderSide: const BorderSide(color: Color(0xFFFFFFFF)),
       ),
     );
   }

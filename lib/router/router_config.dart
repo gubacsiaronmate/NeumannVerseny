@@ -18,7 +18,9 @@ final router = GoRouter(
     final appwriteService = AppwriteService();
     final bool isLoggedIn = await appwriteService.hasActiveSession();
 
-    if (state.matchedLocation == Routers.loginpage.path && isLoggedIn) {
+    if ((state.matchedLocation == Routers.loginpage.path
+        || state.matchedLocation == Routers.authenticationpage.path
+        || state.matchedLocation == Routers.signuppage.path) && isLoggedIn) {
       return Routers.homepage.path;
     }
 
